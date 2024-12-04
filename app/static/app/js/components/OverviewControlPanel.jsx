@@ -16,6 +16,7 @@ export default class OverviewControlPanel extends React.Component {
     super(props);
 
     this.state = {
+      field_ids: [],
       collapsedLayers: {},
       filteredSelectedLayers: [],
     };
@@ -23,6 +24,25 @@ export default class OverviewControlPanel extends React.Component {
     this.removeGeoJsonDetections = this.props.removeGeoJsonDetections;
     this.loadGeoJsonDetections = this.props.loadGeoJsonDetections;
     this.tiles = this.props.tiles;
+  }
+
+
+
+  componentDidMount = () => {
+    const task_id = this.tiles[0].meta.task.id;
+    const project_id = this.tiles[0].meta.task.project;
+
+    fetch('/api/projects/' + project_id + '/tasks/'+ task_id +'/ai/detections/field').then((value) => {
+        if (value.status == 404) {
+          let err = {};
+          err.message = interpolate(_("Detection at %(url)s not found!"), { url: api });
+          cb(err);
+          return;
+        }
+        value.json().then((geojson) =>{
+            this.state.field_ids = geojson.features.map(feature => feature.properties.field_id);
+        })
+    })
   }
 
   componentDidUpdate = (prevProps) => {
@@ -58,6 +78,7 @@ export default class OverviewControlPanel extends React.Component {
   };
 
     handleSendData = async () => {
+        
         const { filteredSelectedLayers } = this.state;
 
         if (filteredSelectedLayers.length == 0 ){
@@ -70,16 +91,18 @@ export default class OverviewControlPanel extends React.Component {
         const url = `/api/projects/${project_id}/tasks/${task_id}/process`;
         const csrfToken = getCsrfToken(); 
     
-        const requests = filteredSelectedLayers.map(({ layer }) => {
+
+
+        const requests = filteredSelectedLayers.map(({ layer , index }) => {
             const payload = {
                 type: layer.cropType,
-                payload: { processing_requests: { fields_to_process: [] } } // Adicionar IDs aqui
+                payload: { processing_requests: { fields_to_process: [this.state.field_ids[index]] } }  //Adicionar IDs aqui
             };
             return fetch(url, {
                 method: 'POST',
                 headers: { 
                     'content-type': 'application/json',
-                    'X-CSRFToken': csrfToken, // Adicionando o CSRF token ao cabeçalho
+                    'X-CSRFToken': csrfToken,  //Adicionando o CSRF token ao cabeçalho
                 },
                 body: JSON.stringify(payload)
             });
@@ -133,37 +156,37 @@ export default class OverviewControlPanel extends React.Component {
     this.loadGeoJsonDetections(fieldSet);
   };
 
-  handleSendData = async () => {
-    const { filteredSelectedLayers } = this.state;
-    const task_id = this.tiles[0].meta.task.id;
-    const project_id = this.tiles[0].meta.task.project;
-    const url = `/api/projects/${project_id}/tasks/${task_id}/process`;
-    const csrfToken = getCsrfToken();
+  // handleSendData = async () => {
+  //   const { filteredSelectedLayers } = this.state;
+  //   const task_id = this.tiles[0].meta.task.id;
+  //   const project_id = this.tiles[0].meta.task.project;
+  //   const url = `/api/projects/${project_id}/tasks/${task_id}/process`;
+  //   const csrfToken = getCsrfToken();
 
-    const requests = filteredSelectedLayers.map(({ layer }) => {
-      const payload = {
-        type: layer.cropType,
-        payload: { processing_requests: { fields_to_process: [] } }, // Adicionar IDs aqui
-      };
-      return fetch(url, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "X-CSRFToken": csrfToken, // Adicionando o CSRF token ao cabeçalho
-        },
-        body: JSON.stringify(payload),
-      });
-    });
+  //   const requests = filteredSelectedLayers.map(({ layer }) => {
+  //     const payload = {
+  //       type: layer.cropType,
+  //       payload: { processing_requests: { fields_to_process: [] } }, // Adicionar IDs aqui
+  //     };
+  //     return fetch(url, {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "application/json",
+  //         "X-CSRFToken": csrfToken, // Adicionando o CSRF token ao cabeçalho
+  //       },
+  //       body: JSON.stringify(payload),
+  //     });
+  //   });
 
-    try {
-      const responses = await Promise.all(requests);
-      const results = await Promise.all(responses.map((res) => res.json()));
-      console.log("sucess: ", results);
-      alert("Talhões enviados para o processamento com sucesso.");
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  //   try {
+  //     const responses = await Promise.all(requests);
+  //     const results = await Promise.all(responses.map((res) => res.json()));
+  //     console.log("sucess: ", results);
+  //     alert("Talhões enviados para o processamento com sucesso.");
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   handlePopUp = (e) => {
     const { overlays } = this.props;
