@@ -562,9 +562,9 @@ class EditTaskForm extends React.Component {
 
     let taskOptions = "";
     if (this.formReady()) {
-
+      
       const optionsSelector = (
-        <div className='select-container' style={{ display: "flex", justifyContent: "start", alignItems: "  ", }}>
+        <div className='select-container'>
           <select
             title={this.getAvailableOptionsOnlyText(this.state.selectedPreset.options, this.state.selectedNode.options)}
             className="form-control input-field options-select"
@@ -608,7 +608,7 @@ class EditTaskForm extends React.Component {
         </div>);
 
       let tagsField = "";
-      if (this.state.showTagsField) {
+      if (true) {
         tagsField = (<div className="form-group">
           <label className="col-sm-2 control-label">{_("Tags")}</label>
           <div className="col-sm-10">
@@ -619,17 +619,7 @@ class EditTaskForm extends React.Component {
 
       taskOptions = (
         <div className='edit-task-form'>
-          {tagsField}
-          {/* <div className="form-group col-sm-10 form-group-data">
-            <label className="col-sm-2 control-label">{_("Processing Node")}</label>
-              <div className="col-sm-10">
-                <select className="form-control" value={this.state.selectedNode.key} onChange={this.handleSelectNode}>
-                {this.state.processingNodes.map(node => 
-                  <option value={node.key} key={node.key} disabled={!node.enabled}>{node.label}</option>
-                )}
-                </select>
-              </div>
-          </div> */}
+          
           <div className="form-group col-sm-10">
             <label className="col-sm-2 control-label newPad">{_("Name")}</label>
             <div className="col-sm-10 name-fields input-field">
@@ -641,10 +631,18 @@ class EditTaskForm extends React.Component {
                 className="remove-style name-input"
                 placeholder={this.state.namePlaceholder}
                 value={this.state.name} />
-              <button type="button" title={_("Add tags")} onClick={this.toggleTagsField} className="remove-style">
-                <i className="fa fa-tag"></i>
-              </button>
             </div>
+          </div>
+          {tagsField}
+          <div className="form-group col-sm-10 form-group-data">
+            <label className="col-sm-2 control-label">{_("Processing Node")}</label>
+              <div className="col-sm-10">
+                <select className="form-control" value={this.state.selectedNode.key} onChange={this.handleSelectNode}>
+                {this.state.processingNodes.map(node => 
+                  <option value={node.key} key={node.key} disabled={!node.enabled}>{node.label}</option>
+                )}
+                </select>
+              </div>
           </div>
           <div className='form-group col-sm-10'>
               <label className="col-sm-2 control-label newPad">{_("Options")}</label>
@@ -682,11 +680,16 @@ class EditTaskForm extends React.Component {
       </div>);
     }
 
-    return (
+    
 
+    return (
+      
       <>
         {/*  Task Information Panel */}
-        {this.props.currentStep === "settingsStep" && <div>{taskOptions}</div>}
+        {/* {this.props.currentStep === "settingsStep" && <div>{taskOptions}</div>} */}
+        {/* Essa eh a parte q tava dando erro, por algum motivo simplesmente nao aperece nada se nn deixar do jeito q eu fiz, provavelmente pq o currentStep nunca eh o settingsStep */}
+        <div>{taskOptions}</div>
+
 
         {/* Ai Panel */}
         {/* {this.props.currentStep === "aiStep" && <div>
