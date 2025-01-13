@@ -577,15 +577,12 @@ class EditTaskForm extends React.Component {
 
           {!this.state.presetActionPerforming ?
             <div className="btn-group presets-dropdown littleScreen">
-              <button type="button" className="btn btn-sm btn-default" title={_("Edit Task Options")} onClick={this.handleEditPreset}>
-                <i className="fa fa-sliders-h"></i> {_("Edit")}
-              </button>
               <button type="button" className="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                 <span className="caret"></span>
               </button>
               <ul className="dropdown-menu">
                 <li>
-                  <a href="javascript:void(0);" onClick={this.handleEditPreset}><i className="fa fa-sliders-h"></i> {_("Edit")}</a>
+                  <a href="javascript:void(0);" onClick={this.handleEditPreset}><i className="fa fa-sliders-h"></i> {_("Personalizar")}</a>
                 </li>
                 <li className="divider"></li>
 
