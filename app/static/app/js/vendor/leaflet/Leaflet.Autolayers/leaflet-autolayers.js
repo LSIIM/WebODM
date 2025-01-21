@@ -148,8 +148,9 @@ L.Control.AutoLayers = L.Control.extend({
 		}
 
 		//base layers are made here
-		var baseLayersDiv = this._baseLayersDiv = L.DomUtil.create('div', 'leaflet-control-layers-tab',
+		var baseLayersDiv = this._baseLayersDiv = L.DomUtil.create('div', 'leaflet-control-layers-tab popright',
 			form);
+			
 		this._baseLayersTitle = L.DomUtil.create('div', 'leaflet-control-autolayers-title',
 			baseLayersDiv);
 		this._baseLayersTitle.innerHTML = 'Base Maps';
@@ -313,9 +314,22 @@ L.Control.AutoLayers = L.Control.extend({
 		var closeControl = this._baseLayersClose;
 		L.DomEvent.addListener(closeControl, 'click', function(e) {
 			this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.parentNode.className
-				.replace(
-					'leaflet-control-layers-expanded', '');
+				.replace('leaflet-control-layers-expanded', '');
+			
+			// Remove os estilos inline aplicados anteriormente
+			var container = this.parentNode.parentNode.parentNode;
+			container.style.removeProperty('position');
+			container.style.removeProperty('top');
+			container.style.removeProperty('left');
+			container.style.removeProperty('transform');
 		});
+		// var closeControl = this._baseLayersClose;
+		// L.DomEvent.addListener(closeControl, 'click', function(e) {
+		// 	this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.parentNode.className
+		// 		.replace(
+		// 			'leaflet-control-layers-expanded', '');
+					
+		// });
 
 		//fix pesky zooming, have to dynamically measure the hidden div too! Make sure you do that!
 		var overlayBox = this._overlaysList;
@@ -935,6 +949,11 @@ L.Control.AutoLayers = L.Control.extend({
 	
 	_expand: function() {
 		L.DomUtil.addClass(this._container, 'leaflet-control-layers-expanded');
+		this._container.style.position = 'absolute';
+   		this._container.style.top = '10%';
+		this._container.style.left = '-10%';
+		this._container.style.transform = 'translate(-100%, 0%)';
+		this._container.style.setProperty('transform', 'translate(-100%, 0%)', 'important');
 	},
 
 	_collapse: function() {
