@@ -106,30 +106,37 @@ L.Control.AutoLayers = L.Control.extend({
 		this._update();
 		return this;
 	},
-
+	
 	_initLayout: function() {
 		var className = 'leaflet-control-layers',
 			container = this._container = L.DomUtil.create('div', className);
 
+			//trocado container por link
+			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
+			link.href = '#';
+			link.title = 'Base Maps';
+			link.style.display = 'block'; // impede que fique none
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
-		container.setAttribute('aria-haspopup', true);
+		link.setAttribute('aria-haspopup', true);
+
+
+
+		
 
 		if (!L.Browser.touch) {
 			L.DomEvent
-				.disableClickPropagation(container)
-				.disableScrollPropagation(container);
+				.disableClickPropagation(link)
+				.disableScrollPropagation(link);
 		} else {
-			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
+			L.DomEvent.on(link, 'click', L.DomEvent.stopPropagation);
 		}
 
 		var form = this._form = L.DomUtil.create('form', className + '-list');
 
 		if (this.options.collapsed) {
 
-			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
-			link.href = '#';
-			link.title = 'Base Maps';
 
+			
 			if (L.Browser.touch) {
 				L.DomEvent
 					.on(link, 'click', L.DomEvent.stop)
@@ -148,7 +155,7 @@ L.Control.AutoLayers = L.Control.extend({
 		}
 
 		//base layers are made here
-		var baseLayersDiv = this._baseLayersDiv = L.DomUtil.create('div', 'leaflet-control-layers-tab popright',
+		var baseLayersDiv = this._baseLayersDiv = L.DomUtil.create('div', 'leaflet-control-layers-tab',
 			form);
 			
 		this._baseLayersTitle = L.DomUtil.create('div', 'leaflet-control-autolayers-title',
@@ -322,6 +329,8 @@ L.Control.AutoLayers = L.Control.extend({
 			container.style.removeProperty('top');
 			container.style.removeProperty('left');
 			container.style.removeProperty('transform');
+
+			
 		});
 		// var closeControl = this._baseLayersClose;
 		// L.DomEvent.addListener(closeControl, 'click', function(e) {
