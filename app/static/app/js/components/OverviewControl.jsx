@@ -5,55 +5,46 @@ import PropTypes from 'prop-types';
 import '../css/OverviewControl.scss';
 import OverviewControlPanel from './OverviewControlPanel';
 
-
 class OverviewControl extends React.Component {
     static propTypes = {
         selectedLayers: PropTypes.array.isRequired,
         removeGeoJsonDetections: PropTypes.func,
         loadGeoJsonDetections: PropTypes.func,
         overlays: PropTypes.array.isRequired,
-        tiles:PropTypes.array
+        tiles: PropTypes.array,
+        isOpen: PropTypes.bool.isRequired, // Visibilidade
+        onOpen: PropTypes.func.isRequired, // Função para abrir
+        onClose: PropTypes.func.isRequired, // Função para fechar
     }
-
-    constructor(props){
-        super(props);
-
-        this.state = {
-            showPanel: false
-        };
-    }
-
-    handleOpen = () => {
-        this.setState({showPanel: true});
-    }
-    
-    handleClose = () => {
-        this.setState({showPanel: false});
-    }
-
 
     render() {
-        
-        const { showPanel } = this.state;
-        
+        const { isOpen, onOpen, onClose } = this.props;
+
         return (
-            <div className={showPanel ? "open" : ""}>
-                <a href="javascript:void(0);" 
-                title="Visão geral"
-                onClick={this.handleOpen} 
-                className="leaflet-control-overview-control-button leaflet-bar-part theme-secondary"></a>
-                <OverviewControlPanel 
-                    tiles={this.props.tiles}
-                    onClose={this.handleClose} 
-                    selectedLayers={this.props.selectedLayers} 
-                    removeGeoJsonDetections={this.props.removeGeoJsonDetections}
-                    loadGeoJsonDetections={this.props.loadGeoJsonDetections}
-                    overlays={this.props.overlays}/>
-            </div>);
-        
+            <div className={isOpen ? "open" : ""}>
+                <a
+                    href="javascript:void(0);"
+                    title="Visão geral"
+                    onClick={() => {
+                        console.log('isOpen antes de acionar onClick:', isOpen); // Verifique o valor de `isOpen` antes
+                        isOpen ? onClose() : onOpen();  // Acione `onOpen` ou `onClose`
+                    }}
+                    className="leaflet-control-overview-control-button leaflet-bar-part theme-secondary">
+                </a>
+                {isOpen && (
+                    <OverviewControlPanel
+                        tiles={this.props.tiles}
+                        onClose={onClose}
+                        selectedLayers={this.props.selectedLayers}
+                        removeGeoJsonDetections={this.props.removeGeoJsonDetections}
+                        loadGeoJsonDetections={this.props.loadGeoJsonDetections}
+                        overlays={this.props.overlays}
+                    />
+                )}
+            </div>
+        );
     }
 }
-
 
 export default L.Control.extend({
     options: {
@@ -70,28 +61,41 @@ export default L.Control.extend({
                     this.options.removeGeoJsonDetections, 
                     this.options.loadGeoJsonDetections,
                     this.options.tiles,
-                    this.options.overlays);
+                    this.options.overlays,
+                    this.options.isOpen,
+                    this.options.onOpen,
+                    this.options.onClose);
 
         return this.container;
     },
 
-    update: function(selectedLayers, removeGeoJsonDetections, loadGeoJsonDetections, tiles, overlays){
-        ReactDOM.render(<OverviewControl 
-                            map={this.map} 
-                            selectedLayers={selectedLayers} 
-                            removeGeoJsonDetections={removeGeoJsonDetections}
-                            loadGeoJsonDetections={loadGeoJsonDetections}
-                            tiles={tiles}
-                            overlays={overlays}/>, 
-                            this.container);
+    update: function(selectedLayers, removeGeoJsonDetections, loadGeoJsonDetections, tiles, overlays, isOpen, onOpen, onClose) {
+        ReactDOM.render(
+            <OverviewControl
+                map={this.map}
+                selectedLayers={selectedLayers}
+                removeGeoJsonDetections={removeGeoJsonDetections}
+                loadGeoJsonDetections={loadGeoJsonDetections}
+                tiles={tiles}
+                overlays={overlays}
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+            />, 
+            this.container
+        );
     },
+    
 
     updateSelectedLayers: function(selectedLayers, overlays) {
         this.update(selectedLayers,
                     this.options.removeGeoJsonDetections, 
                     this.options.loadGeoJsonDetections,
                     this.options.tiles,
-                    overlays)
+                    overlays,
+                    this.options.isOpen,
+                    this.options.onOpen,
+                    this.options.onClose);
     },
 
     updateOverlays: function(overlays, selectedLayers) {
@@ -99,6 +103,9 @@ export default L.Control.extend({
                     this.options.removeGeoJsonDetections, 
                     this.options.loadGeoJsonDetections,
                     this.options.tiles,
-                    overlays)
+                    overlays,
+                    this.options.isOpen,
+                    this.options.onOpen,
+                    this.options.onClose);
     }
 });

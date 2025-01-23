@@ -68,6 +68,9 @@ class Map extends React.Component {
       overlays: [],
       selectedLayers: [],
       isDrawing: false,
+
+      openPanel: null,
+      
     };
 
     this.basemaps = {};
@@ -698,8 +701,22 @@ class Map extends React.Component {
       overlays: this.state.overlays,
       loadGeoJsonDetections: this.loadGeoJsonDetections,
       removeGeoJsonDetections: this.removeGeoJsonDetections,
-    }).addTo(this.map);
-
+  
+      isOpen: this.state.openPanel === 'overview', // Verifique se o painel está aberto
+      onOpen: () => {
+          console.log("Abrindo overview");
+          this.setState({ openPanel: 'overview' }, () => {
+              console.log('openPanel após setState:', this.state.openPanel); // Verifique se está correto
+          });
+      },
+      onClose: () => {
+          console.log("Fechando overview");
+          this.setState({ openPanel: null }, () => {
+              console.log('openPanel após setState:', this.state.openPanel); // Verifique se está correto
+          });
+      }
+  }).addTo(this.map);
+  
     this.sprayLineControl = new SprayLineControl({
       tiles: tiles,
       selectedLayers: this.state.selectedLayers,
