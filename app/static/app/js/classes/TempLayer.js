@@ -112,7 +112,8 @@ export function addTempLayerUsingRequest(api, apiType, aiTypes, stateSelectedLay
         addLayer(geojson);
       }).catch((err) => {
         console.error(err)
-        err.message = interpolate(_("Não é um arquivo JSON adequado em: %(url)s!"), { url: api });
+       // err.message = interpolate(_("Não é um arquivo JSON adequado em: %(url)s!"), { url: api });
+       
         cb(err);
       });
     });

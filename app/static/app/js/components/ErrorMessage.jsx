@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { _ } from '../classes/gettext';
+import '../css/ErrorMessage.scss';
 
 class ErrorMessage extends React.Component {
     static propTypes = {
@@ -26,9 +27,18 @@ class ErrorMessage extends React.Component {
         if (parent.state[prop]){
             return (
                 <div className={"alert alert-warning alert-dismissible " + (this.props.className ? this.props.className : "")}>
-                    <button type="button" className="close" title={_("Close")} onClick={this.close}><span aria-hidden="true">&times;</span></button>
-                    {parent.state[prop]}
+                    <div className="alert-icon">
+                        <i className="fa fa-exclamation-triangle"></i>
+                    </div>
+                    <div className="error-alert">Erro!</div>
+                    
+                    <button type="button" className="close" title={_("Close")} onClick={this.close}>Fechar</button>
+                    {/* {parent.state[prop]} */}
+                    <div className="error-message">
+                    Não foi detectada nenhuma daninha no talhão selecionado!
+                    </div>
                 </div>
+                
             );
         }else{
             return (<div></div>);
