@@ -109,15 +109,18 @@ L.Control.AutoLayers = L.Control.extend({
 	
 	_initLayout: function() {
 		var className = 'leaflet-control-layers',
+
+		
 			container = this._container = L.DomUtil.create('div', className);
+			
 
 			//trocado container por link
 			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
 			link.href = '#';
 			link.title = 'Base Maps';
 			link.style.display = 'block'; // impede que fique none
-		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
-		link.setAttribute('aria-haspopup', true);
+			//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
+			link.setAttribute('aria-haspopup', true);
 
 
 
@@ -130,7 +133,7 @@ L.Control.AutoLayers = L.Control.extend({
 		} else {
 			L.DomEvent.on(link, 'click', L.DomEvent.stopPropagation);
 		}
-
+		
 		var form = this._form = L.DomUtil.create('form', className + '-list');
 
 		if (this.options.collapsed) {
