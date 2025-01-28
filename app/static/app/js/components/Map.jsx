@@ -68,6 +68,8 @@ class Map extends React.Component {
       overlays: [],
       selectedLayers: [],
       isDrawing: false,
+      openPopupId: null // Adiciona controle para o popup aberto
+
     };
 
     this.basemaps = {};
@@ -82,6 +84,10 @@ class Map extends React.Component {
     this.removeGeoJsonDetections = this.removeGeoJsonDetections.bind(this);
     this.setSelectedLayers = this.setSelectedLayers.bind(this);
     this.getSelectedLayers = this.getSelectedLayers.bind(this);
+
+    this.handleOpenPopup = this.handleOpenPopup.bind(this); // Vincula a função para abrir o popup
+    this.handleClosePopup = this.handleClosePopup.bind(this); // Vincula a função para fechar o popup
+  
   }
 
   setOpacityForLayer(layer, opacity) {
@@ -688,7 +694,10 @@ class Map extends React.Component {
       overlays: this.state.overlays,
       loadGeoJsonDetections: this.loadGeoJsonDetections,
       removeGeoJsonDetections: this.removeGeoJsonDetections,
-    }).addTo(this.map);
+      onOpen: () => this.handleOpenPopup('overview'), // Define qual popup está aberto
+      onClose: this.handleClosePopup // Fecha o popup
+    }).addTo(this.map); // Adiciona o controle ao mapa
+  
 
     this.sprayLineControl = new SprayLineControl({
       tiles: tiles,
@@ -795,6 +804,15 @@ class Map extends React.Component {
     location.reload(true);
   }
 
+  // Abrir e fechar popup
+  handleOpenPopup(popupId) {
+    this.setState({ openPopupId: popupId }); // Define o popup atual aberto
+  }
+
+  // Função para fechar todos os popups
+  handleClosePopup() {
+    this.setState({ openPopupId: null }); // Fecha todos os popups
+  }
   render() {
     
     return (
