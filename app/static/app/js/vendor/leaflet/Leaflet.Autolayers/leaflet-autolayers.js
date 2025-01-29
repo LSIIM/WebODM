@@ -118,7 +118,7 @@ L.Control.AutoLayers = L.Control.extend({
 			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
 			link.href = '#';
 			link.title = 'Base Maps';
-			link.style.display = 'block'; // impede que fique none
+			//link.style.display = 'block'; // impede que fique none
 			//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 			link.setAttribute('aria-haspopup', true);
 

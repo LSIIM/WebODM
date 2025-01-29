@@ -5,6 +5,11 @@
   max-width: 300px;
   border-radius: 20px;
   z-index: 99999;
+    position: absolute !important;
+    top: 10% !important;
+    left: -10% !important;
+    transform: translate(-100%, 0%) !important;
+  
   
   .close-button{
     display: inline-block;

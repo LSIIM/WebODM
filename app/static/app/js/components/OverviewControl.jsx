@@ -13,9 +13,7 @@ class OverviewControl extends React.Component {
         loadGeoJsonDetections: PropTypes.func,
         overlays: PropTypes.array.isRequired,
         tiles:PropTypes.array,
-        isOpen: PropTypes.bool.isRequired, // indica se o popup está aberto
-        onOpen: PropTypes.func.isRequired, // função para abrir o popup
-        onClose: PropTypes.func.isRequired, // função para fechar o popup
+
     }
 
     constructor(props){
@@ -26,32 +24,32 @@ class OverviewControl extends React.Component {
         };
     }
 
-    // handleOpen = () => {
-    //     this.setState({showPanel: true});
-    // }
+    handleOpen = () => {
+        this.setState({showPanel: true});
+    }
     
-    // handleClose = () => {
-    //     this.setState({showPanel: false});
-    // }
+    handleClose = () => {
+        this.setState({showPanel: false});
+    }
 
 
     render() {
         
-        //const { showPanel } = this.state;
-        const { isOpen, onOpen, onClose } = this.props;
+        const { showPanel } = this.state;
+       
 
         return (
             <>
                 <a href="javascript:void(0);" 
                 title="Overview"
-                onClick={onOpen} 
+                onClick={this.handleOpen} 
                 className="leaflet-control-overview-control-button leaflet-bar-part theme-secondary"></a>
                 
-                <div className={isOpen ? "open popright" : ""}>
+                <div className={showPanel ? "open popright" : ""}>
                 
                     <OverviewControlPanel 
                         tiles={this.props.tiles}
-                        onClose={onClose} 
+                        onClose={this.handleClose} 
                         selectedLayers={this.props.selectedLayers} 
                         removeGeoJsonDetections={this.props.removeGeoJsonDetections}
                         loadGeoJsonDetections={this.props.loadGeoJsonDetections}

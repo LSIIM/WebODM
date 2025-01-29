@@ -13,13 +13,16 @@
     a.leaflet-control-contours-button{
       display: none;
     }
+    
 
     div.contours-panel{
       display: block;
     }
+    
   }
 }
 .leaflet-touch .leaflet-control-contours a {
   background-size: 40px 40px;
   background-position: -4.3px -3px;
 }
+

@@ -174,7 +174,8 @@ export default class MeasurePopup extends React.Component {
       {label: _("Highest"), method: 'highest'},
       {label: _("Lowest"), method: 'lowest'}];
 
-    return (<div className="plugin-measure popup">
+    return (
+    <div className="plugin-measure popup">
         {featureType == "Polygon" && <p>{_("Area:")} {this.props.model.areaDisplay}</p>}
         {featureType == "Polygon" && <p>{_("Perimeter:")} {this.props.model.lengthDisplay}</p>}
         {featureType == "Polygon" && volume === null && !error && <p>{_("Volume:")} <i>{_("computing…")}</i> <i className="fa fa-cog fa-spin fa-fw" /></p>}

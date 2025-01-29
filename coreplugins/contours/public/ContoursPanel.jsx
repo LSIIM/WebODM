@@ -354,7 +354,7 @@ export default class ContoursPanel extends React.Component {
       </div>);
     }
 
-    return (<div className="contours-panel">
+    return (<div className="contours-panel ">
       <span className="close-button" onClick={this.props.onClose}/>
       <div className="title">{_("CONTORNOS")}</div>
       
