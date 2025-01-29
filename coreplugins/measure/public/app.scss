@@ -13,9 +13,8 @@
     border-radius: 20px !important;
     position: absolute;
     //left: -22px !important;
-    left: -35em !important;
-    
-    
+    left: -33em !important;
+    top: 8px;
 }
 
 .leaflet-control-measure,
@@ -116,4 +115,5 @@
     background-repeat: no-repeat;
     background-size: 50px 50px !important;
     background-position-y: -8px;
+    display: block !important;
 }   
