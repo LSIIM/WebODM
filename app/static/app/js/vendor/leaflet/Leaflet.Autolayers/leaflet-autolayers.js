@@ -934,6 +934,7 @@ L.Control.AutoLayers = L.Control.extend({
 		var inputs = this._form.getElementsByTagName('input'),
 			inputsLen = inputs.length;
 
+			// Remove o estilo da div principal que possui o botao
 			this._container.style.setProperty('position', '', 'important');
 			this._container.style.setProperty('top', '', 'important');
 			this._container.style.setProperty('left', '', 'important');
