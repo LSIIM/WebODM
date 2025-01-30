@@ -107,6 +107,17 @@ L.Control.AutoLayers = L.Control.extend({
 		return this;
 	},
 
+	updateOpenPopup: function(openPopup) {
+		if(openPopup !== "basemaps") {
+			document.querySelector(".leaflet-control-autolayers-close")?.click()
+		}
+	},
+	addEventPopup: function(onTogglePopup) {
+		document.querySelector(".leaflet-control-layers-toggle").addEventListener("click", () => {
+			onTogglePopup("basemaps");
+		})
+	},
+
 	_initLayout: function() {
 		var className = 'leaflet-control-layers',
 			container = this._container = L.DomUtil.create('div', className);
