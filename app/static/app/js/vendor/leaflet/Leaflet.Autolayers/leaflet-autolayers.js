@@ -875,6 +875,7 @@ L.Control.AutoLayers = L.Control.extend({
 		input.layerId = L.stamp(obj.layer);
 
 		L.DomEvent.on(input, 'click', this._onInputClick, this);
+		
 
 		var name = document.createElement('span');
 		name.innerHTML = ' ' + obj.name;
@@ -932,7 +933,14 @@ L.Control.AutoLayers = L.Control.extend({
 	
 		var inputs = this._form.getElementsByTagName('input'),
 			inputsLen = inputs.length;
-	
+
+			this._container.style.setProperty('position', '', 'important');
+			this._container.style.setProperty('top', '', 'important');
+			this._container.style.setProperty('left', '', 'important');
+			this._container.style.setProperty('transform', '', 'important');
+			
+
+
 		for (var i = 0; i < inputsLen; i++) {
 			var input = inputs[i],
 				obj = this._layers[input.layerId];
