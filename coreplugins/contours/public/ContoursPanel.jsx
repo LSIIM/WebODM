@@ -240,7 +240,7 @@ export default class ContoursPanel extends React.Component {
                       (simplify === "custom" && !customSimplify);
 
     let content = "";
-    if (loading) content = (<span><i className="fa fa-circle-notch fa-spin"></i> {_("Loading…")}</span>);
+    if (loading) content = (<span><i className="fa fa-circle-notch fa-spin"></i> {_("Carregando ...")}</span>);
     else if (permanentError) content = (<div className="alert alert-warning">{permanentError}</div>);
     else{
       content = (<div>
@@ -276,14 +276,14 @@ export default class ContoursPanel extends React.Component {
           <label className="col-sm-3 control-label">{_("Simplificar:")}</label>
           <div className="col-sm-9 ">
             <select className="form-control" value={simplify} onChange={this.handleSelectSimplify}>
-              {simplifyValues.map(sv => <option value={sv.value}>{sv.label} ({sv.value} {_("meter")})</option>)}
-              <option value="custom">{_("Custom")}</option>
+              {simplifyValues.map(sv => <option value={sv.value}>{sv.label} ({sv.value} {_("metros")})</option>)}
+              <option value="custom">{_("Personalizar")}</option>
             </select>
           </div>
         </div>
         {simplify === "custom" ? 
           <div className="row form-group form-inline">
-            <label className="col-sm-3 control-label">{_("Value:")}</label>
+            <label className="col-sm-3 control-label">{_("Valor:")}</label>
             <div className="col-sm-9 ">
               <input type="number" className="form-control custom-interval" value={customSimplify} onChange={this.handleChangeCustomSimplify} /><span> {_("meter")}</span>
             </div>
@@ -310,10 +310,10 @@ export default class ContoursPanel extends React.Component {
         : ""}
 
         <div className="row action-buttons">
-            {previewLayer ? <a title="Delete Preview" href="javascript:void(0);" onClick={this.handleRemovePreview}>
-              <i className="fa fa-trash"></i>
-            </a> : ""}
-          <div className="col-sm-9 text-right">
+            {previewLayer ? <a title="Delete Preview" href="javascript:void(0);" onClick={this.handleRemovePreview} className="delete-visualization-btn">
+              <i className="fa fa-trash"></i> <span>{_("Deletar Visualização")}</span>
+            </a>: ""}
+          <div className="col-sm-12 text-right">
            <div className="btn-group">
             <button onClick={this.handleShowPreview}
                     disabled={disabled || previewLoading} type="button" className="btn btn-sm btn-primary btn-preview">
@@ -326,7 +326,7 @@ export default class ContoursPanel extends React.Component {
               <button disabled={disabled || exportLoading} type="button" className="btn btn-sm btn-primary btn-export" data-toggle="dropdown">
                 {exportLoading ? <i className="fa fa-spin fa-circle-notch"/> : <i className="glyphicon glyphicon-download" />} {_("Exportar")}
               </button>
-              <ul className="dropdown-menu  pull-right">
+              <ul className="dropdown-menu underExport">
                 <li>
                   <a href="javascript:void(0);" onClick={this.handleExport("GPKG")}>
                     <i className="fa fa-globe fa-fw"></i> GeoPackage (.GPKG)
@@ -355,7 +355,7 @@ export default class ContoursPanel extends React.Component {
     }
 
     return (<div className="contours-panel">
-      <span className="close-button" onClick={this.props.onClose}/>
+      <span className="close-button fas fa-times" onClick={this.props.onClose}/>
       <div className="title">{_("CONTORNOS")}</div>
       
       {content}

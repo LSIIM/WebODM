@@ -1,4 +1,7 @@
 .export-asset-panel{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .btn-export{
         i{
             margin-top: 8px;

@@ -7,11 +7,11 @@ import { _ } from '../classes/gettext';
 
 class FormDialog extends React.Component {
     static defaultProps = {
-        title: _("Title"),
-        saveLabel: _("Save"),
-        savingLabel: _("Saving…"),
+        title: _("Título"),
+        saveLabel: _("Salvar"),
+        savingLabel: _("Salvando..."),
         saveIcon: "glyphicon glyphicon-plus",
-        deleteWarning: _("Are you sure?"),
+        deleteWarning: _("Tem certeza?"),
         show: false
     };
 
@@ -127,7 +127,7 @@ class FormDialog extends React.Component {
             this.serverRequest = this.props.saveAction(formData);
             if (this.serverRequest){
                 this.serverRequest.fail(e => {
-                    this.setState({error: e.message || (e.responseJSON || {}).detail || (e.responseJSON || {}).error || e.responseText || _("Could not apply changes")});
+                    this.setState({error: e.message || (e.responseJSON || {}).detail || (e.responseJSON || {}).error || e.responseText || _("Não foi possível aplicar as alterações")});
                 }).always(() => {
                     this.setState({saving: false});
                     this.serverRequest = null;
@@ -148,7 +148,7 @@ class FormDialog extends React.Component {
                 this.setState({deleting: true});
                 this.props.deleteAction()
                     .fail(e => {
-                        if (this._mounted) this.setState({error: e.message || (e.responseJSON || {}).detail || e.responseText || _("Could not delete item")});
+                        if (this._mounted) this.setState({error: e.message || (e.responseJSON || {}).detail || e.responseText || _("Não foi possível excluir o item")});
                     }).always(() => {
                         if (this._mounted) this.setState({deleting: false});
                     });
@@ -159,17 +159,18 @@ class FormDialog extends React.Component {
     render(){
         let leftButtons = [];
         if (this.props.deleteAction){
-            leftButtons.push(<button 
+            leftButtons.push(
+            <button 
                 disabled={this.state.deleting}
-                className="btn btn-danger"
+                className="btn btn-danger btn-delete-editProject"
                 key="delete" 
                 onClick={this.handleDelete}>
                 {this.state.deleting ? 
                     <span>
-                        <i className="fa fa-circle-notch fa-spin"></i> {_("Deleting...")}
+                        <i className="fa fa-circle-notch fa-spin"></i> {_("Deletando...")}
                     </span>
                 :   <span>
-                        <i className="fa fa-trash"></i> {_("Delete")}
+                        <i className="fa fa-trash"></i> {_("Deletar")}
                     </span>}
             </button>);
         }
@@ -179,34 +180,32 @@ class FormDialog extends React.Component {
 
         return (
             <div ref={this.setModal}
-                className="modal form-dialog" tabIndex="-1"
+                className="modal fade form-dialog" tabIndex="-1"
                 data-backdrop="static"
             >
               <div className="modal-dialog">
                 <div className="modal-content rounded-corners">
                   <div className="modal-header no-border">
-                    <button type="button" className="close" onClick={this.hide}><span className="x-close">&times;</span></button>
-                    <h4 className="modal-title text-center force-montserrat-bold">{this.props.title}</h4>
+                    {/* <button type="button" className="close" onClick={this.hide}><span className="x-close">&times;</span></button> EXCLUIDO POR FALTA DE ULTILIDADE, POIS JA EXISTE UM BOTAO CANCELAR */}
+                    <h4 className="modal-title text-center force-montserrat-bold">{this.props.title === "Edit Project" ? "Editar Projeto" : this.props.title }</h4>
                   </div>
-                  <div id="edit-project-popup" className="modal-body">
+                  <div id="edit-project-popup" >
                     <ErrorMessage bind={[this, "error"]} />
-                    <div className="form-horizontal" onSubmit={this.handleSave}>
+                    <div className="" onSubmit={this.handleSave}>
                       {this.props.children}
                     </div>
                   </div>
-                  <div className="modal-footer">
-                    <div className="pull-right">
-                        <button type="button" className="btn btn-cancel btn-default rounded-corners font-12" onClick={this.hide} disabled={this.state.saving}>{_("Cancel")}</button>
-                        <button type="button" className="btn save rounded-corners font-12" onClick={this.handleSave} disabled={this.state.saving}>
+                  <div className="btn-S-C" >
+                        <button type="button" className="btn save font-12"  onClick={this.handleSave} disabled={this.state.saving}>
                             {this.state.saving ? 
-                                <span>
-                                    <i className="fa fa-circle-notch fa-spin"></i> {this.props.savingLabel}
+                                <span >
+                                    Salvar Mudanças
                                 </span>
                             :   <span>
-                                    <i className={this.props.saveIcon}></i> {this.props.saveLabel}
+                                   Salvar Mudanças
                                 </span>}
                         </button>
-                    </div>
+                        <button type="button" className="btn btn-cancel font-12" onClick={this.hide} disabled={this.state.saving}>{_("Cancelar")}</button>
                     
                     {leftButtons.length > 0 ?
                         <div className="text-left">

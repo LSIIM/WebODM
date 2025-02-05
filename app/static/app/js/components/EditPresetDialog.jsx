@@ -107,7 +107,7 @@ class EditPresetDialog extends React.Component {
                     show={true}
                     onShow={this.onShow}
                     saveIcon="far fa-edit"
-                    title={_("Edit Task Options")}
+                    title={_("Editar opções de tarefa")}
                     saveAction={this.props.saveAction}
                     deleteWarning={false}
                     deleteAction={(this.props.preset.id !== -1 && !this.props.preset.system) ? this.props.deleteAction : undefined}>
@@ -121,12 +121,12 @@ class EditPresetDialog extends React.Component {
                     <hr key="hr"/>]
                   : ""}
 
-                  <button type="submit" className="btn btn-default search-toggle btn-sm"  title={_("Search")} onClick={this.toggleSearchControl}><i className="fa fa-filter"></i></button>
+                  <button type="submit" className="btn btn-default search-toggle btn-sm"  title={_("Buscar")} onClick={this.toggleSearchControl}><i className="fa fa-filter"></i></button>
 
                   {this.state.showSearch ? 
                     <div className="row search-controls">
                         <div className="col-sm-12">
-                            <input type="text" className="form-control" value={this.state.search} ref={(node) => { this.searchControl = node}} onChange={this.handleChange('search')} />
+                            <input type="text" className="form-control"  value={this.state.search} ref={(node) => { this.searchControl = node}} onChange={this.handleChange('search')} />
                         </div>
                     </div> 
                   : ""}

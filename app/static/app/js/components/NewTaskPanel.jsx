@@ -56,40 +56,32 @@ class NewTaskPanel extends React.Component {
   }
 
   save(e) {
-    if (!this.state.inReview) {
-      this.setState({ inReview: true });
+    this.setState({ inReview: false, loading: true });
+    e.preventDefault();
+    this.taskForm.saveLastPresetToStorage();
+    Storage.setItem('resize_size', this.state.resizeSize);
+    Storage.setItem('resize_mode', this.state.resizeMode);
+
+    const taskInfo = this.getTaskInfo();
+    if (taskInfo.selectedNode.key != "auto") {
+      Storage.setItem('last_processing_node', taskInfo.selectedNode.id);
     } else {
-      this.setState({ inReview: false, loading: true });
-      e.preventDefault();
-      this.taskForm.saveLastPresetToStorage();
-      Storage.setItem('resize_size', this.state.resizeSize);
-      Storage.setItem('resize_mode', this.state.resizeMode);
-
-      const taskInfo = this.getTaskInfo();
-      if (taskInfo.selectedNode.key != "auto") {
-        Storage.setItem('last_processing_node', taskInfo.selectedNode.id);
-      } else {
-        Storage.setItem('last_processing_node', '');
-      }
-
-      if (this.props.onSave) this.props.onSave(taskInfo);
+      Storage.setItem('last_processing_node', '');
     }
 
-    this.setState({ currentStep: "aiStep" });
+    if (this.props.onSave) this.props.onSave(taskInfo);
   }
+
 
   cancel = (e) => {
-    if (this.state.inReview) {
-      this.setState({ inReview: false });
-    } else {
-      if (this.props.onCancel) {
-        if (window.confirm(_("Are you sure you want to cancel?"))) {
-          this.props.onCancel();
-        }
+    if (this.props.onCancel) {
+      if (window.confirm(_("Tem certeza de que deseja cancelar?"))) {
+        this.props.onCancel();
       }
     }
-    this.setState({ currentStep: "settingsStep" });
   }
+  
+
 
   getTaskInfo() {
     return Object.assign(this.taskForm.getTaskInfo(), {
@@ -127,6 +119,16 @@ class NewTaskPanel extends React.Component {
     this.setState({ taskInfo: this.getTaskInfo() });
   }
 
+  changeButtonColor = () => {
+    const resizeMode = ResizeModes.toHuman(this.state.resizeMode);
+
+    if(this.state.resizeMode == 1){
+      return '#52994C';
+    }else{
+      return '#95a5a6';
+    }
+  }
+
   render() {
     let filesCountOk = true;
     if (this.taskForm && !this.taskForm.checkFilesCount(this.props.filesCount)) filesCountOk = false;
@@ -135,34 +137,34 @@ class NewTaskPanel extends React.Component {
       <div className="new-task-panel theme-background-highlight">
         <div className="form-horizontal">
           <div>
-            <p className='files-text'>{interpolate(_("%(count)s files selected. Please check these additional options:"), { count: this.props.filesCount })}</p>
+            <p className='files-text'>{interpolate(_("%(count)s arquivos selecionados. Por favor, verifique estas opções adicionais:"), { count: this.props.filesCount })}</p>
 
             {!filesCountOk ?
               <div className="alert alert-warning">
-                {interpolate(_("Number of files selected exceeds the maximum of %(count)s allowed on this processing node."), { count: this.taskForm.selectedNodeMaxImages() })}
+                {interpolate(_("O número de arquivos selecionados excede o máximo de %(count)s permitido neste nó de processamento."), { count: this.taskForm.selectedNodeMaxImages() })}
                 <button onClick={this.props.onCancel} type="button" className="btn btn-xs btn-primary redo">
-                  <span><i className="glyphicon glyphicon-remove-circle"></i> {_("Cancel")}</span>
+                  <span><i className="glyphicon glyphicon-remove-circle"></i> {_("Cancelar")}</span>
                 </button>
               </div>
               : ""}
-
-            <EditTaskForm
-              selectedNode={Storage.getItem("last_processing_node") || "auto"}
-              onFormLoaded={this.handleFormTaskLoaded}
-              onFormChanged={this.handleFormChanged}
-              inReview={this.state.inReview}
-              currentStep={this.state.currentStep}
-              suggestedTaskName={this.props.suggestedTaskName}
-              ref={(domNode) => { if (domNode) this.taskForm = domNode; }}
-            />
-
+            <div className='fixEditar'>
+              <EditTaskForm
+                selectedNode={Storage.getItem("last_processing_node") || "auto"}
+                onFormLoaded={this.handleFormTaskLoaded}
+                onFormChanged={this.handleFormChanged}
+                inReview={this.state.inReview}
+                currentStep={this.state.currentStep}
+                suggestedTaskName={this.props.suggestedTaskName}
+                ref={(domNode) => { if (domNode) this.taskForm = domNode; }}
+              />
+            </div>
             {this.state.editTaskFormLoaded && this.props.showResize && this.state.currentStep !== "aiStep" ?
               <div>
-                <div className="form-group resize-images-container">
-                  <label className="col-sm-2 control-label">{_("Resize Images")}</label>
-                  <div className="col-sm-10">
+                <div className="form-group col-sm-10">
+                  <label className="col-sm-2 control-label noPadding">{("Redimensionar Imagens")}</label>
+                  <div className="col-sm-10 option-container">
                     <div className="btn-group">
-                      <button type="button" className="btn btn-default-s dropdown-toggle" data-toggle="dropdown">
+                      <button type="button" className="btn btn-default-s dropdown-toggle buttonHover" style={{backgroundColor:this.changeButtonColor()}} data-toggle="dropdown">
                         {ResizeModes.toHuman(this.state.resizeMode)} <span className="caret"></span>
                       </button>
                       <ul className="dropdown-menu">
@@ -189,29 +191,14 @@ class NewTaskPanel extends React.Component {
 
           {this.state.editTaskFormLoaded ?
             <div className="form-group">
-              {/* SETTINGS STEP BUTTON CANCEL | NEXT */}
-              {this.state.currentStep === "settingsStep" &&
-                <div className="col-sm-offset-2 col-sm-10 text-right">
-                  {this.props.onCancel !== undefined && <button type="submit" className="btn btn-danger" onClick={this.cancel} style={{ marginRight: 4 }}>{_("Cancel")}</button>}
+                <div className=" textMoveRight">
+                  {this.props.onCancel !== undefined && <button type="submit" className="btn btn-danger" onClick={this.cancel} style={{ marginRight: 4 }}>{("Cancelar")}</button>}
                   {this.state.loading ?
-                    <button type="submit" className="btn btn-primary" disabled={true}><i className="fa fa-circle-notch fa-spin fa-fw"></i>{_("Loading…")}</button>
+                    <button type="submit" className="btn btn-primary" disabled={true}><i className="fa fa-circle-notch fa-spin fa-fw"></i>{_("Carregando....")}</button>
                     :
-                    <button type="submit" className="btn btn-confirm" onClick={this.save} disabled={this.props.filesCount < 1 || !filesCountOk}>{_("Próximo")}</button>
+                    <button type="submit" className="btn btn-confirm" onClick={this.save} disabled={this.props.filesCount < 1 || !filesCountOk}>{("Iniciar o processamento")}</button>
                   }
                 </div>
-              }
-
-              {/* AI STEP BUTTON CANCEL | NEXT */}
-              {this.state.currentStep === "aiStep" &&
-                <div className="col-sm-offset-2 col-sm-10 text-right">
-                  {this.props.onCancel !== undefined && <button type="submit" className="btn btn-danger" onClick={this.cancel} style={{ marginRight: 4 }}>{_("Cancel")}</button>}
-                  {this.state.loading ?
-                    <button type="submit" className="btn btn-primary" disabled={true}><i className="fa fa-circle-notch fa-spin fa-fw"></i>{_("Loading…")}</button>
-                    :
-                    <button type="submit" className="btn btn-confirm" style={{ backgroundColor: "#529A4C" }} onClick={this.save} disabled={this.props.filesCount < 1 || !filesCountOk}>{_("Start Processing")}</button>
-                  }
-                </div>
-              }
             </div>
             : ""}
         </div>
@@ -219,5 +206,6 @@ class NewTaskPanel extends React.Component {
     );
   }
 }
+
 
 export default NewTaskPanel;

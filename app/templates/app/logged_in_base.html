@@ -60,7 +60,7 @@
                     <div>
                         <i data-sidebar="icons" class="fa fa-tachometer-alt fa-fw plugin-icon"></i>
                         <span data-sidebar="link-text">
-                            {% trans 'Dashboard' %}
+                            Painel
                         </span>
                     </div>
                 </a>
@@ -73,23 +73,12 @@
 
             {% get_plugins_main_menus as plugin_menus %}
             {% for menu in plugin_menus %}
-            <li>
-                <a href="{{menu.link}}">
-                    <div>
-                        <i class="{{menu.css_icon}} plugin-icon"></i>
-                        <span data-sidebar="link-text">
-                            {{menu.label}}
-                        </span>
-                    </div>
-                    {% if menu.has_submenu %}
-                    <span class="fa arrow"></span>
-                    {% endif %}
-                </a>
-                <span class="horizontal-bar-sidebar"></span>
 
-                {% if menu.has_submenu %}
-                <ul class="nav nav-second-level" data-sidebar="dropdown">
-                    {% for menu in menu.submenu %}
+            {# Verifica se o menu não é "Diagnóstico" ou se o usuário é Administrador (is_staff True).  Se qualquer uma das condições for verdadeira, o item do menu será exibido na lista. Se o menu for Diagnóstico e o usuário não for administrador o item não será exibido. #}
+            {% if menu.label != "Diagnóstico" or user.is_staff != False %}
+                {# Verifica se o nome do menu é "Rede Lightning" ou "Interface de Ponto de Controle", Caso seja não mostra ao usuário #}
+                {% if menu.label != "Rede Lightning" and menu.label != "Interface de Ponto de Controle" %}
+        
                     <li>
                         <a href="{{menu.link}}">
                             <div>
@@ -103,20 +92,41 @@
                             {% endif %}
                         </a>
                         <span class="horizontal-bar-sidebar"></span>
+
+                        {% if menu.has_submenu %}
+                        <ul class="nav nav-second-level" data-sidebar="dropdown">
+                            {% for menu in menu.submenu %}
+                            <li>
+                                <a href="{{menu.link}}">
+                                    <div>
+                                        <i class="{{menu.css_icon}} plugin-icon"></i>
+                                        <span data-sidebar="link-text">
+                                            {{menu.label}}
+                                        </span>
+                                    </div>
+                                    {% if menu.has_submenu %}
+                                    <span class="fa arrow"></span>
+                                    {% endif %}
+                                </a>
+                                <span class="horizontal-bar-sidebar"></span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                     </li>
-                    {% endfor %}
-                </ul>
                 {% endif %}
-            </li>
+            {% endif %}
             {% endfor %}
 
             {% if view_nodes %}
+            {# Se o usuario não for STAFF ele não recebe o menu de nodos de processamento #}
+            {% if user.is_staff %}
             <li>
                 <a href="#" class="itens-collapse">
                     <div>
                         <i class="fa fa-wrench fa-fw plugin-icon"></i>
                         <span data-sidebar="link-text">
-                            {% trans 'Processing Nodes' %}
+                            Nós de processamento
                         </span>
                     </div>
                     <span class="fa arrow"></span>
@@ -143,7 +153,7 @@
                             <div>
                                 <span class="fa fa-plus-circle plugin-icon"></span>
                                 <span data-sidebar="link-text">
-                                    {% trans 'Add New' %}
+                                    Adicionar novo
                                 </span>
                             </div>
                         </a>
@@ -154,6 +164,7 @@
                 <!-- /.nav-second-level -->
             </li>
             {% endif %}
+            {% endif %}
 
             {% if user.is_staff %}
             <li>
@@ -161,7 +172,7 @@
                     <div>
                         <i class="fa fa-cogs fa-fw plugin-icon"></i>
                         <span data-sidebar="link-text">
-                            {% trans 'Administration' %}
+                           Administração
                         </span>
                     </div>
                     <span class="fa arrow"></span>
@@ -175,7 +186,7 @@
                             <div>
                                 <i class="fa fa-user fa-fw plugin-icon"></i>
                                 <span data-sidebar="link-text">
-                                    {% trans 'Accounts'%}
+                                    Contas
                                 </span>
                             </div>
                         </a>
@@ -186,14 +197,14 @@
                             <div>
                                 <i class="fa fa-users fa-fw plugin-icon"></i>
                                 <span data-sidebar="link-text">
-                                    {% trans 'Groups'%}
+                                    Grupos
                                 </span>
                             </div>
                         </a>
                         <span class="horizontal-bar-sidebar"></span>
                     </li>
                     {% endif %}
-                    <li>
+                    <!-- <li>
                         <a href="{% url 'admin:app_setting_change' SETTINGS.id %}">
                             <div>
                                 <i class="fa fa-magic fa-fw plugin-icon"></i>
@@ -203,8 +214,8 @@
                             </div>
                         </a>
                         <span class="horizontal-bar-sidebar"></span>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a href="{% url 'admin:app_theme_change' SETTINGS.theme.id %}">
                             <div>
                                 <i class="fa fa-paint-brush fa-fw plugin-icon"></i>
@@ -214,13 +225,13 @@
                             </div>
                         </a>
                         <span class="horizontal-bar-sidebar"></span>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="/admin/app/plugin/">
                             <div>
                                 <i class="fa fa-plug fa-fw plugin-icon"></i>
                                 <span data-sidebar="link-text">
-                                    {% trans 'Plugins'%}
+                                    Plugins
                                 </span>
                             </div>
                         </a>
@@ -231,7 +242,7 @@
                             <div>
                                 <i class="fa fa-cog fa-fw plugin-icon"></i>
                                 <span data-sidebar="link-text">
-                                    {% trans 'Application' %}
+                                    Aplicação
                                 </span>
                             </div>
                         </a>
@@ -248,7 +259,7 @@
                     <div>
                         <i class="fa fa-bug fa-fw plugin-icon"></i>
                         <span data-sidebar="link-text">
-                            {% trans 'Developer Tools' %}
+                           Ferramenta do desenvolvedor
                         </span>
                     </div>
                 </a>
@@ -260,7 +271,7 @@
                     <div>
                         <i class="fa fa-info-circle fa-fw plugin-icon"></i>
                         <span data-sidebar="link-text">
-                            {% trans 'About' %}
+                            Sobre
                         </span>
                     </div>
                 </a>

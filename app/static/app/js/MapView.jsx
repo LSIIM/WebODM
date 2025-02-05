@@ -48,7 +48,7 @@ class MapView extends React.Component {
 
     if (selectedMapType === "auto") selectedMapType = "orthophoto"; // Hope for the best
 
-    let availableAISelections = ['ai_cattle', 'ai_corn', 'ai_field', 'ai_soy'];
+    let availableAISelections = ['ai_cattle', 'ai_corn', 'ai_field', 'ai_soy', 'ai_cane'];
 
     this.selectableAI = new Set();
 
@@ -139,27 +139,27 @@ class MapView extends React.Component {
   render() {
     let mapTypeButtons = [
       {
-        label: _("Orthophoto"),
+        label: _("Ortofoto"),
         type: "orthophoto",
         icon: "far fa-image"
       },
       {
-        label: _("Plant Health"),
+        label: _("Saúde Vegetal"),
         type: "plant",
         icon: "fa fa-seedling"
       },
       {
-        label: _("Surface Model"),
+        label: _("Modelo de superfície"),
         type: "dsm",
         icon: "fa fa-chart-area"
       },
       {
-        label: _("Terrain Model"),
+        label: _("Modelo de terreno"),
         type: "dtm",
         icon: "fa fa-chart-area"
       },
       {
-        label: _("Polynomial Health"),
+        label: _("Saúde Polinomial"),
         type: "polyhealth",
         icon: "fa fa-image"
       }
@@ -193,7 +193,13 @@ class MapView extends React.Component {
         type: "ai_corn",
         name: "corn", // route
         icon: "glyphicon glyphicon-screenshot",
-      }
+      },
+      {
+        label: _("IA Daninha (cana)"),
+        type: "ai_cane",
+        name: "cane", // route
+        icon: "glyphicon glyphicon-screenshot",
+      },
     ]
 
     let aiTypeButtons = [
@@ -221,22 +227,21 @@ class MapView extends React.Component {
               <button
                 key={mapType.type}
                 onClick={this.handleMapTypeButton(mapType.type)}
-                className={"btn rounded-corners " + (mapType.type === this.state.selectedMapType ? "selected-button" : "default-button")}
+                className={"btn rounded-corners btn-map " + (mapType.type === this.state.selectedMapType ? "selected-button" : "default-button")}
               >
                 <i className={mapType.icon}></i> {mapType.label}
               </button>
             )}
-            
-            
-            <div className="btn-group">
+
+            <div className="btn-group btn-map">
               <button
                 type="button"
-                className="btn btn-secondary dropdown-toggle"
+                className="btn btn-map btn-secondary dropdown-toggle"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                IA Types
+                Talhões Processados
                 <span class="glyphicon glyphicon-chevron-down"></span>
               </button>
               

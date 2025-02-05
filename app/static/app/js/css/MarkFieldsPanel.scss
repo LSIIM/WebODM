@@ -1,0 +1,78 @@
+.leaflet-control-markFields-control .markFields-control-panel{
+  padding: 15px 20px 15px 25px;
+  margin: 10px 12px 0 0;
+  background: #fff;
+  width: 300px;
+  min-height: 74px;
+  max-height: 418px;
+  overflow-y: auto;
+  border-radius: 12px;
+  overflow-x: hidden;
+
+
+  .close-button{
+    display: inline-block;
+    font-size:17px;
+    height: 30px;
+    width: 30px;
+    margin-right: 0;
+    float: right;
+    vertical-align: middle;
+    text-align: right;
+    margin-top: 0px;
+    margin-left: 16px;
+    position: relative;
+    left: 2px;
+
+    &:hover{
+      opacity: 0.7;
+      cursor: pointer;
+    }
+  }
+  
+  .title{
+    padding: 7px 0px;
+    font-size: 120%;
+    margin-right: 60px;
+    color: #14a5a2;
+  }
+
+  hr{
+    clear: both;
+    margin: 6px 0px 10px;
+    border-color: #ddd;
+  }
+
+  *{
+      font-size: 12px;
+  }
+
+  .panel-button {
+    font-size: 1em;
+    color: #707070;
+    cursor: pointer;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+    font-family: "Montserrat Bold" !important;
+    margin: 0 4px 0 0;
+  }
+
+  .panel-button:hover {
+      opacity: .5;
+  }
+  .corIcons{
+    color: #14a5a2;
+  }
+  .corIconDelete{
+    color: #E74c3c;
+  }
+  hr {
+      border: none;
+      border-top: 1px solid #74b06f;
+      margin-top: 5px;
+      margin-bottom: 7px;
+  }
+  .spaceBetween{
+    margin-bottom: 20px;
+  }
+}
