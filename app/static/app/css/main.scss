@@ -365,3 +365,120 @@ footer{
     background-size: 50px 50px !important;
     background-position: -9.4px -7px !important;
 }
+
+div.breadcrumbs {
+    width: 900px !important; /* Faz os breadcrumbs terem a mesma largura da tabela */
+    margin: 0 auto 20px auto !important; /* Centraliza e ajusta o espaçamento */
+    text-align: left !important;
+    font-size: 14px !important;
+    color: #666 !important;
+    font-family: "Montserrat Medium" !important;
+}
+
+.admin-area h1 {
+    width: 900px !important; /* Garante que o título tenha a mesma largura da tabela */
+    margin: 0 auto 15px auto !important; /* Centraliza horizontalmente */
+    text-align: left !important;
+    font-size: 20px !important; /* Mantém um tamanho destacado */
+    font-weight: bold !important;
+    color: #333 !important;
+    margin-top: 10px !important; /* Ajusta o espaçamento superior */
+}
+
+#custom-admin-dashboard {
+    max-width: 900px !important;
+    margin: auto !important;
+    background: white !important;
+    border: 1px solid #14a5a2 !important;
+    border-radius: 15px !important;
+    padding: 20px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+  
+    caption {
+        background: #18bc9c !important; /* Mantém a cor de fundo */
+        color: white !important;
+        font-weight: bold !important;
+        padding: 15px !important;
+        border-radius: 10px !important; /* Garante bordas arredondadas em todos os lados */
+        text-align: left !important;
+        font-size: 16px !important;
+    }
+
+    .actions {
+        display: flex !important;
+        gap: 10px !important; /* Garante um espaçamento adequado entre os botões */
+        justify-content: flex-end !important; /* Alinha os botões à direita */
+        align-items: center !important;
+    }
+    
+    .addlink:before{
+        font-family: "FontAwesome" !important;
+        content: "\f067" !important; /* Código unicode do fa-plus */
+        font-size: 14px !important;
+        margin-right: 5px !important;
+    }
+
+    .changelink:before {
+        font-family: "FontAwesome" !important;
+        content: "\f044" !important; /* Código unicode do fa-pencil-square-o */
+        font-size: 14px !important;
+        margin-right: 5px !important;
+    }
+
+    .changelink, .addlink {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-decoration: none !important;
+        font-size: 14px !important;
+        padding: 8px 12px !important;
+        border-radius: 5px !important;
+        background: rgba(65, 118, 144, 0.1) !important;
+        border: 1px solid #417690 !important;
+        color: #417690 !important;
+        font-weight: bold !important;
+        transition: background 0.2s !important;
+
+        &:hover {
+            background: rgba(65, 118, 144, 0.3) !important;
+        }
+    }
+
+    table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+  
+        tr {
+            height: 50px !important;
+        }
+
+        tr th {
+            text-align: left !important;
+            vertical-align: middle !important;
+            padding-left: 15px !important;
+            font-weight: bold !important;
+            font-size: 14px !important;
+        }
+
+        tr td {
+            vertical-align: middle !important; /* Mantém o alinhamento vertical correto */
+            padding: 10px 15px !important;
+        }
+
+        tr td.actions {
+            display: flex !important;
+            justify-content: flex-end !important; /* Empurra os botões para a direita */
+            align-items: center !important;
+            gap: 10px !important; /* Mantém espaçamento entre os botões */
+            width: 200px !important;
+            white-space: nowrap !important; /* Evita que quebre linha */
+        }
+
+        th, td {
+            padding: 14px 450px !important;
+            border-bottom: 1px solid rgba(20, 165, 162, 0.3) !important;
+            font-size: 15px !important;
+        }
+    }
+
+}
