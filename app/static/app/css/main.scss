@@ -367,8 +367,8 @@ footer{
 }
 
 div.breadcrumbs {
-    width: 900px !important; /* Faz os breadcrumbs terem a mesma largura da tabela */
-    margin: 0 auto 20px auto !important; /* Centraliza e ajusta o espaçamento */
+    width: 900px !important;
+    margin: 0 auto 20px auto !important;
     text-align: left !important;
     font-size: 14px !important;
     color: #666 !important;
@@ -376,13 +376,13 @@ div.breadcrumbs {
 }
 
 .admin-area h1 {
-    width: 900px !important; /* Garante que o título tenha a mesma largura da tabela */
-    margin: 0 auto 15px auto !important; /* Centraliza horizontalmente */
+    width: 900px !important;
+    margin: 0 auto 15px auto !important;
     text-align: left !important;
-    font-size: 20px !important; /* Mantém um tamanho destacado */
+    font-size: 20px !important;
     font-weight: bold !important;
     color: #333 !important;
-    margin-top: 10px !important; /* Ajusta o espaçamento superior */
+    margin-top: 10px !important;
 }
 
 #custom-admin-dashboard {
@@ -395,32 +395,32 @@ div.breadcrumbs {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
   
     caption {
-        background: #18bc9c !important; /* Mantém a cor de fundo */
+        background: #18bc9c !important;
         color: white !important;
         font-weight: bold !important;
         padding: 15px !important;
-        border-radius: 10px !important; /* Garante bordas arredondadas em todos os lados */
+        border-radius: 10px !important;
         text-align: left !important;
         font-size: 16px !important;
     }
 
     .actions {
         display: flex !important;
-        gap: 10px !important; /* Garante um espaçamento adequado entre os botões */
-        justify-content: flex-end !important; /* Alinha os botões à direita */
+        gap: 10px !important;
+        justify-content: flex-end !important;
         align-items: center !important;
     }
     
     .addlink:before{
         font-family: "FontAwesome" !important;
-        content: "\f067" !important; /* Código unicode do fa-plus */
+        content: "\f067" !important;
         font-size: 14px !important;
         margin-right: 5px !important;
     }
 
     .changelink:before {
         font-family: "FontAwesome" !important;
-        content: "\f044" !important; /* Código unicode do fa-pencil-square-o */
+        content: "\f044" !important;
         font-size: 14px !important;
         margin-right: 5px !important;
     }
@@ -461,17 +461,17 @@ div.breadcrumbs {
         }
 
         tr td {
-            vertical-align: middle !important; /* Mantém o alinhamento vertical correto */
+            vertical-align: middle !important;
             padding: 10px 15px !important;
         }
 
         tr td.actions {
             display: flex !important;
-            justify-content: flex-end !important; /* Empurra os botões para a direita */
+            justify-content: flex-end !important;
             align-items: center !important;
-            gap: 10px !important; /* Mantém espaçamento entre os botões */
+            gap: 10px !important;
             width: 200px !important;
-            white-space: nowrap !important; /* Evita que quebre linha */
+            white-space: nowrap !important;
         }
 
         th, td {
