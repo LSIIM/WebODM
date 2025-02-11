@@ -8,21 +8,33 @@
 }
 
 .selector-available h2{
-    color: transparent !important;
+    visibility: hidden;
+    padding: 0px !important;
 }
 
 .selector-available h2::before{
+    visibility: visible;
     content: "Permissões Disponíveis";
     color: #666;
+    
+    background-color: #E3E3E3 !important; 
+    border: 1px solid #E3E3E3; 
+    border-radius: 30px;
+    padding: 10.5px 12px !important;
+    font-size: 16px;
+    outline: none; 
+    width: 300px;
+    height: 40.85px;
+    display: inline-block;
 }
 
 #id_name{
-    background-color: #E3E3E3;  /* Cinza claro */
-    border: 1px solid #E3E3E3;  /* Borda cinza */
-    border-radius: 30px;  /* Bordas arredondadas */
-    padding: 8px 12px;  /* Espaçamento interno */
-    font-size: 16px;  /* Tamanho do texto */
-    outline: none;  /* Remove contorno ao focar */
+    background-color: #E3E3E3;
+    border: 1px solid #E3E3E3;
+    border-radius: 30px; 
+    padding: 8px 12px; 
+    font-size: 16px;
+    outline: none;
     width: 300px;
 }
 
@@ -41,11 +53,12 @@
     width: 100%;
     padding: 8px 12px;
     padding-left: 30px;
-    background-color: #E3E3E3;  /* Cinza claro */
-    border: 1px solid #E3E3E3;  /* Borda cinza */
-    border-radius: 30px;  /* Bordas arredondadas */
-    font-size: 16px;  /* Tamanho do texto */
+    background-color: #E3E3E3; 
+    border: 1px solid #E3E3E3;
+    border-radius: 30px;
+    font-size: 16px; 
     outline: none; 
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif !important;
 }
 
 #id_permissions_filter input::placeholder{
@@ -79,71 +92,64 @@
     width: 100%;
     padding: 15px;
     color: #434343;
-    background-color: #E3E3E3;  /* Cinza claro */
-    border: 1px solid #E3E3E3;  /* Borda cinza */
-    border-top-left-radius: 30px;  /* Bordas arredondadas */
-    border-bottom-left-radius: 30px;  /* Bordas arredondadas */
-    border-top-right-radius: 15px;  /* Bordas arredondadas */
-    border-bottom-right-radius: 15px;  /* Bordas arredondadas */
-    font-size: 13px;  /* Tamanho do texto */
+    background-color: #E3E3E3;  
+    border: 1px solid #E3E3E3;  
+    border-top-left-radius: 30px;  
+    border-bottom-left-radius: 30px;  
+    border-top-right-radius: 15px;  
+    border-bottom-right-radius: 15px;  
+    font-size: 13px;  
     outline: none; 
-    overflow-y: auto; /* Apenas rolagem vertical */
-    overflow-x: hidden; /* Remove a rolagem horizontal */
-    box-sizing: border-box; /* A barra de rolagem não ocupará espaço fora do contêiner */
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    box-sizing: border-box;
     max-height: 380px;
 }
 
 #id_permissions_from::-webkit-scrollbar {
-    width: 12px;  /* Largura da barra de rolagem vertical */
+    width: 12px;  
 }
 
 #id_permissions_from::-webkit-scrollbar-track {
-    background: #E3E3E3;  /* Cor de fundo do track */
-    border-radius: 30px;  /* Bordas arredondadas */
+    background: #E3E3E3;  
+    border-radius: 30px;  
 }
 
 #id_permissions_from::-webkit-scrollbar-thumb {
-    background: #18BC9C;  /* Cor do thumb */
-    border-radius: 10px;  /* Bordas arredondadas */
-    border: 3px solid #E3E3E3;  /* Borda do thumb para destacar */
+    background: #18BC9C;  
+    border-radius: 10px;  
+    border: 3px solid #E3E3E3;  
 }
 
 #id_permissions_from::-webkit-scrollbar-thumb:hover {
-    background: #555;  /* Cor do thumb ao passar o mouse */
+    background: #555;  
 }
 
 #id_permissions_from option:hover {
-    background-color: #18BC9C; /* Cor de fundo da opção selecionada */
-    color: white; /* Cor do texto da opção selecionada */
-}
-
-.selector-available h2{
-    background-color: #E3E3E3 !important;  /* Cinza claro */
-    border: 1px solid #E3E3E3;  /* Borda cinza */
-    border-radius: 30px;  /* Bordas arredondadas */
-    padding: 3.2mm 12px !important;  /* Espaçamento interno */
-    font-size: 16px;  /* Tamanho do texto */
-    outline: none;  /* Remove contorno ao focar */
-    width: 300px;
+    background-color: #18BC9C; 
+    color: white; 
 }
 
 .selector-chooser{
-    margin-top: 200px !important;
+    margin-top: 220px !important;
 }
 
 .selector-chosen{
-    margin-top: 80px !important;
+    margin-top: 100px !important;
 }
 
 .selector-chosen h2{
     all: unset !important;
     float: left !important;
     margin-bottom: 10px !important;
-    color: transparent !important;
+    visibility: hidden !important;
+    
 }
 .selector-chosen h2::before{
     color: #707070;
     content: "Permissões Escolhidas";
+    visibility: visible;
+    
 }
 
 .selector-chosen .help-tooltip,
@@ -158,43 +164,43 @@
     width: 100%;
     padding: 15px;
     color: #434343;
-    background-color: #E3E3E3;  /* Cinza claro */
-    border: 1px solid #E3E3E3;  /* Borda cinza */
-    border-top-left-radius: 30px;  /* Bordas arredondadas */
-    border-bottom-left-radius: 30px;  /* Bordas arredondadas */
-    border-top-right-radius: 15px;  /* Bordas arredondadas */
-    border-bottom-right-radius: 15px;  /* Bordas arredondadas */
-    font-size: 13px;  /* Tamanho do texto */
+    background-color: #E3E3E3;  
+    border: 1px solid #E3E3E3;  
+    border-top-left-radius: 30px;  
+    border-bottom-left-radius: 30px;  
+    border-top-right-radius: 15px;  
+    border-bottom-right-radius: 15px;  
+    font-size: 13px;  
     outline: none; 
-    overflow-y: auto; /* Apenas rolagem vertical */
-    overflow-x: hidden; /* Remove a rolagem horizontal */
-    box-sizing: border-box; /* A barra de rolagem não ocupará espaço fora do contêiner */
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    box-sizing: border-box;
     max-height: 380px;
     height: 223.59px !important;
 }
 
 #id_permissions_to::-webkit-scrollbar {
-    width: 12px;  /* Largura da barra de rolagem vertical */
+    width: 12px;  
 }
 
 #id_permissions_to::-webkit-scrollbar-track {
-    background: #E3E3E3;  /* Cor de fundo do track */
-    border-radius: 30px;  /* Bordas arredondadas */
+    background: #E3E3E3;  
+    border-radius: 30px;  
 }
 
 #id_permissions_to::-webkit-scrollbar-thumb {
-    background: #18BC9C;  /* Cor do thumb */
-    border-radius: 10px;  /* Bordas arredondadas */
-    border: 3px solid #E3E3E3;  /* Borda do thumb para destacar */
+    background: #18BC9C;  
+    border-radius: 10px;  
+    border: 3px solid #E3E3E3;  
 }
 
 #id_permissions_to::-webkit-scrollbar-thumb:hover {
-    background: #555;  /* Cor do thumb ao passar o mouse */
+    background: #555;  
 }
 
 #id_permissions_to option:hover {
-    background-color: #18BC9C; /* Cor de fundo da opção selecionada */
-    color: white; /* Cor do texto da opção selecionada */
+    background-color: #18BC9C; 
+    color: white; 
 }
 
 .addanother, .continue, .default{
