@@ -8,7 +8,12 @@
 }
 
 .selector-available h2{
-    content: "teste";
+    color: transparent !important;
+}
+
+.selector-available h2::before{
+    content: "Permissões Disponíveis";
+    color: #666;
 }
 
 #id_name{
@@ -134,6 +139,11 @@
     all: unset !important;
     float: left !important;
     margin-bottom: 10px !important;
+    color: transparent !important;
+}
+.selector-chosen h2::before{
+    color: #707070;
+    content: "Permissões Escolhidas";
 }
 
 .selector-chosen .help-tooltip,
