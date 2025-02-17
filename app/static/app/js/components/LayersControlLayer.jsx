@@ -75,11 +75,13 @@ export default class LayersControlLayer extends React.Component {
 
   componentDidUpdate(prevProps, prevState){
     const { layer, tileID } = this.props;
-
+    
     if (this.state.visible){
         layer.addTo(this.map);
     }else{
-        this.map.removeLayer(layer);
+        if(layer._url !== undefined){
+            this.map.removeLayer(layer);
+        }
     }
 
     if(prevProps.checked !== this.props.checked){

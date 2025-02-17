@@ -133,8 +133,8 @@ class Map extends React.Component {
 
   loadGeoJsonDetections(types_to_be_loaded) {
     const { tiles } = this.props;
-    const task_id = tiles[0].meta.task.id;
-    const project_id = tiles[0].meta.task.project;
+    const task_id = tiles[this.map.usingTile].meta.task.id;
+    const project_id = tiles[this.map.usingTile].meta.task.project;
 
     const base_url = `/api/projects/${project_id}/tasks/${task_id}/ai/detections/`;
 
