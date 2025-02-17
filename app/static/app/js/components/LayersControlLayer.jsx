@@ -15,18 +15,20 @@ export default class LayersControlLayer extends React.Component {
       layer: null,
       expanded: false,
       map: null,
-      overlay: false
+      overlay: false,
   };
   static propTypes = {
     layer: PropTypes.object.isRequired,
     expanded: PropTypes.bool,
     map: PropTypes.object.isRequired,
-    overlay: PropTypes.bool
+    overlay: PropTypes.bool,
+    tileID: PropTypes.number,
+    checked: PropTypes.bool,
+    onCheckboxChange: PropTypes.func
   }
 
   constructor(props){
     super(props);
-
     this.map = props.map;
     
     const url = this.getLayerUrl();
@@ -53,9 +55,8 @@ export default class LayersControlLayer extends React.Component {
             }
         }
     }
-
     this.state = {
-        visible: this.map.hasLayer(props.layer),
+        visible: this.props.checked,
         expanded: props.expanded,
         colorMap: params.color_map || "",
         formula: params.formula || "",
@@ -73,14 +74,21 @@ export default class LayersControlLayer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    const { layer } = this.props;
+    const { layer, tileID } = this.props;
 
-    if (prevState.visible !== this.state.visible){
-        if (this.state.visible){
-            layer.addTo(this.map);
-        }else{
-            this.map.removeLayer(layer);
-        }
+    if (this.state.visible){
+        layer.addTo(this.map);
+    }else{
+        this.map.removeLayer(layer);
+    }
+
+    if(prevProps.checked !== this.props.checked){
+        this.setState({visible: this.props.checked});
+    }
+
+    if ((prevState.visible !== this.state.visible) && (this.state.visible != this.props.checked)){
+        this.props.onCheckboxChange();
+        this.map.usingTile = tileID;
     }
 
     if (prevState.hillshade !== this.state.hillshade){
@@ -266,6 +274,7 @@ export default class LayersControlLayer extends React.Component {
   }
 
   render(){
+    
     const { colorMap, bands, hillshade, formula, histogramLoading, exportLoading } = this.state;
     const { meta, tmeta } = this;
     const { color_maps, algorithms, auto_bands } = tmeta;
@@ -287,7 +296,8 @@ export default class LayersControlLayer extends React.Component {
     }
 
     return (<div className="layers-control-layer">
-        {!this.props.overlay ? <ExpandButton bind={[this, 'expanded']} /> : <div className="overlayIcon"><i className={meta.icon || "fa fa-vector-square fa-fw"}></i></div>}<Checkbox bind={[this, 'visible']}/>
+        {!this.props.overlay ? <ExpandButton bind={[this, 'expanded']} /> : <div className="overlayIcon"><i className={meta.icon || "fa fa-vector-square fa-fw"}></i></div>}<Checkbox onChange={this.handleCheckbox} bind={[this, 'visible']} />
+
         <a title={meta.name} className="layer-label" href="javascript:void(0);" onClick={this.handleLayerClick}>{meta.name}</a>
 
         {this.state.expanded ? 

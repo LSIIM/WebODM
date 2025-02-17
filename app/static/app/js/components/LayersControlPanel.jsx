@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../css/LayersControlPanel.scss';
 import LayersControlLayer from './LayersControlLayer';
 import { _ } from '../classes/gettext';
+import { active } from 'd3';
 
 export default class LayersControlPanel extends React.Component {
   static defaultProps = {
@@ -18,6 +19,14 @@ export default class LayersControlPanel extends React.Component {
 
   constructor(props){
     super(props);
+
+    this.state = {
+        activeTile: 0,
+    }
+  }
+
+  handleCheckbox = (tileId) => {
+    this.setState({activeTile: tileId});
   }
 
 render() {
@@ -47,11 +56,12 @@ render() {
                     const m_a = a[Symbol.for("meta")] || {};
                     const m_b = b[Symbol.for("meta")] || {};
                     return m_a.name > m_b.name ? -1 : 1;
-                }).map((layer, i) => (
-                    <div key={(layer[Symbol.for("meta")] || {}).name || i}>
-                        <LayersControlLayer map={this.props.map} expanded={this.props.layers.length === 1} overlay={false} layer={layer} />
+                }).map((layer, i) => {
+                    return(
+                    <div key={(layer[Symbol.for("meta")] || {}).name || i}> 
+                        <LayersControlLayer map={this.props.map} expanded={this.props.layers.length === 1} overlay={false} layer={layer} tileID={i} checked={this.state.activeTile === i} onCheckboxChange={() => this.handleCheckbox(i)} />
                     </div>
-                ))}
+                )})}
             </div>
         );
     }

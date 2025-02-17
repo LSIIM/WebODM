@@ -498,6 +498,7 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
+
     const { showBackground, tiles } = this.props;
 
     this.map = Leaflet.map(this.container, {
@@ -507,6 +508,8 @@ class Map extends React.Component {
       minZoom: 0,
       maxZoom: 24
     });
+
+    this.map.usingTile = 0;
 
     // For some reason, in production this class is not added (but we need it)
     // leaflet bug?
@@ -770,8 +773,8 @@ class Map extends React.Component {
 
     // POPUP MARCAR TALHÕES
     this.MarkFieldsControl = new MarkFieldsControl({
-      task_id: this.props.tiles?.[0]?.meta?.task?.id || "ID padrão",
-      project_id: this.props.tiles[0].meta.task.project,
+      task_id: this.props.tiles?.[this.map.usingTile]?.meta?.task?.id || "ID padrão",
+      project_id: this.props.tiles[this.map.usingTile].meta.task.project,
       openPopup: this.state.openPopup,
       onTogglePopup: this.togglePopup,
     }).addTo(this.map);
@@ -782,6 +785,8 @@ class Map extends React.Component {
         this.map.invalidateSize();
       }, 500);
     });
+
+
 
   }
 
@@ -883,7 +888,7 @@ class Map extends React.Component {
   }
 
   render() {
-
+    
     return (
       <div style={{ height: "100%" }} className="map">
         <ProcessingCard task_id={this.props.tiles[0].meta.task.id} project_id={this.props.tiles[0].meta.task.project} endProcess={this.handleEndProcess} />
