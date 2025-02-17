@@ -2,29 +2,157 @@
 {% load i18n %}
 
 {% block content_title %}
-<style type="text/css">
-.plugin-upload{
-    float: right;
-    margin-left: 8px;
-    margin-bottom: 12px;
-}
-.plugin-upload input[type="file"]{
-    display: none;
-}
+<style>
+    body {
+        font-family: Arial, sans-serif !important;
+        background-color: #e3e3e3 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Estilização da tabela com fundo branco e bordas arredondadas */
+    table {
+        width: 95% !important; /* Mantém a tabela menor */
+        max-width: 1100px !important; /* Limita o tamanho horizontal */
+        border-collapse: separate !important; /* Permite aplicar bordas arredondadas */
+        border-spacing: 0 !important; /* Remove espaço entre as células */
+        text-align: left !important;
+        font-size: 13px !important; /* Fonte menor */
+        margin: 20px auto !important; /* Centraliza a tabela */
+        background: #e3e3e3 !important; /* Fundo branco */
+        border-radius: 10px !important; /* Bordas arredondadas */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important; /* Sombra */
+        padding: 15px !important; /* Espaçamento interno */
+    }
+
+    th, td {
+        padding: 8px !important; /* Espaçamento confortável */
+        text-align: left !important;
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    th {
+        background-color: #e3e3e3 !important; /* Fundo do cabeçalho */
+        font-weight: bold !important;
+        font-size: 12px !important;
+    }
+
+    tbody {
+        display: block !important;
+        max-height: 500px !important; /* Altura máxima da tabela */
+        overflow-y: auto !important; /* Scroll vertical ativado dentro da tabela */
+    }
+
+    thead, tbody tr {
+        display: table !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+
+    /* Bordas arredondadas nos cantos da tabela */
+    th:first-child {
+        border-top-left-radius: 10px !important;
+    }
+
+    th:last-child {
+        border-top-right-radius: 10px !important;
+    }
+
+    tr:last-child td:first-child {
+        border-bottom-left-radius: 10px !important;
+    }
+
+    tr:last-child td:last-child {
+        border-bottom-right-radius: 10px !important;
+    }
+
+    tbody::-webkit-scrollbar {
+        width: 8px !important; /* Largura do scroll */
+    }
+
+    /* Scrollbar para Firefox */
+    tbody {
+        scrollbar-color: #14a5a2 #e3e3e3 !important; /* Cor da barra e do fundo */
+    }
+
+    /* Scrollbar para Webkit (Chrome, Edge, Safari) */
+    tbody::-webkit-scrollbar {
+        width: 8px !important; /* Largura do scroll */
+    }
+
+    /* Ajuste do botão de carregar plugins */
+    .plugin-upload {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important; /* Alinha à esquerda */
+        margin-bottom: 15px !important;
+        margin-left: 20px !important; /* Ajuste fino do posicionamento */
+    }
+
+    /* Esconder o input de arquivo */
+    .plugin-upload input[type="file"] {
+        display: none !important;
+    }
+
+    /* Estilização do botão */
+    .upload-btn {
+        background-color: #329c42 !important;
+        color: white !important;
+        padding: 10px 15px !important;
+        border: none !important;
+        border-radius: 25px !important;
+        cursor: pointer !important;
+        font-size: 14px !important;
+        font-weight: bold !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: background-color 0.3s ease !important;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) !important;
+        margin: 0px 75px !important;
+    }
+
+    /* Ajuste do ícone */
+    .upload-btn i {
+        margin-right: 8px !important;
+        font-size: 16px !important;
+    }
+
+    /* Efeito ao passar o mouse */
+    .upload-btn:hover {
+        background-color: #006666 !important;
+    }
+
+    .admin-area h1 {
+      margin: 30px 100px !important;
+      border-bottom: 2px solid #14a5a2 !important;
+      padding-bottom: 20px !important;
+      display: inline-block !important;
+      width: 85% !important;
+    }
+
+    .admin-area div.breadcrumbs {
+      margin: 0px 100px !important;
+    }
+
 </style>
-<div class="plugin-upload">
-  <form name="form" enctype="multipart/form-data"
-        action="actions/upload/" id="plugin-upload-form" method = "POST" >{% csrf_token %}
-    <input type="file"
-           name="file"
-           id="plugin-upload-file"
-           onchange="document.getElementById('plugin-upload-form').submit();"
-           accept=".zip"/>
-    <button type="submit" class="btn btn-sm btn-primary" onclick="document.getElementById('plugin-upload-file').click(); return false;">
-      <i class="glyphicon glyphicon-upload"></i> Carregar Plugin (.zip)'
-    </button>
-  </form>
-</div>
+
 <h1>Gerenciar Plugins</h1>
-<div style="clear: both;"></div>
+
+<!-- Botão de Upload -->
+<div class="plugin-upload">
+    <form name="form" enctype="multipart/form-data"
+          action="actions/upload/" id="plugin-upload-form" method="POST">
+        {% csrf_token %}
+        <input type="file"
+               name="file"
+               id="plugin-upload-file"
+               onchange="document.getElementById('plugin-upload-form').submit();"
+               accept=".zip"/>
+        <button type="button" class="upload-btn" onclick="document.getElementById('plugin-upload-file').click(); return false;">
+            <i class="glyphicon glyphicon-open"></i> Load Plugins .zip
+        </button>
+    </form>
+</div>
+
 {% endblock %}
