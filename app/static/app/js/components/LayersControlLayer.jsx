@@ -75,11 +75,11 @@ export default class LayersControlLayer extends React.Component {
 
   componentDidUpdate(prevProps, prevState){
     const { layer, tileID } = this.props;
-    
+
     if (this.state.visible){
         layer.addTo(this.map);
     }else{
-        if(layer._url !== undefined){
+        if((layer._url !== undefined) || (Object.keys(layer.options).length === 0)){
             this.map.removeLayer(layer);
         }
     }
@@ -89,8 +89,10 @@ export default class LayersControlLayer extends React.Component {
     }
 
     if ((prevState.visible !== this.state.visible) && (this.state.visible != this.props.checked)){
-        this.props.onCheckboxChange();
-        this.map.usingTile = tileID;
+        if(tileID !== undefined){
+            this.props.onCheckboxChange();
+            this.map.usingTile = tileID;
+        }
     }
 
     if (prevState.hillshade !== this.state.hillshade){
