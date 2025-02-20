@@ -3,166 +3,181 @@
 
 {% block content_title %}
 <style>
-    body {
-        font-family: Arial, sans-serif !important;
-        background-color: #e3e3e3 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
+  body {
+      font-family: Arial, sans-serif !important;
+      background-color: #e3e3e3 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+  }
 
-    table {
-        width: 95% !important; 
-        max-width: 1100px !important; 
-        border-collapse: separate !important; 
-        border-spacing: 0 !important; 
+  table {
+      width: 95% !important; 
+      max-width: 1100px !important; 
+      border-collapse: collapse !important; 
+      border-spacing: 0 !important; 
+      text-align: left !important;
+      font-size: 13px !important; 
+      margin: 20px auto !important;
+      background: #e3e3e3 !important;
+      border-radius: 10px !important;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+      table-layout: fixed !important;  /* Mantém colunas alinhadas */
+      overflow: hidden !important; /* Remove scroll lateral */
+      padding: 15px !important;
+
+      th, td{
+        max-width: 250px !important; /* Impede expansão excessiva */
+        word-wrap: break-word !important;
+        text-overflow: ellipsis !important;
+        overflow: hidden !important;
+        padding: 8px !important;
         text-align: left !important;
-        font-size: 13px !important; 
-        margin: 20px auto !important;
-        background: #e3e3e3 !important;
-        border-radius: 10px !important;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
-        padding: 15px !important;
+        border-bottom: 1px solid #ddd !important;
+      }
 
-        th, td{
-          padding: 8px !important;
-          text-align: left !important;
-          border-bottom: 1px solid #ddd !important;
-        }
-
-        th{
-          background-color: #e3e3e3 !important;
-          font-weight: bold !important;
-          font-size: 12px !important;
-        }
-
-        tbody{
-          display: block !important;
-          max-height: 500px !important;
-          overflow-y: auto !important;
-        }
-
-        
-        thead, tbody tr {
-          display: table !important;
-          width: 100% !important;
-          table-layout: fixed !important;
-        }
-
-        th:first-child {
-          border-top-left-radius: 10px !important;
-        }
-
-        th:last-child {
-          border-top-right-radius: 10px !important;
-        }
-
-        tr:last-child td:first-child {
-          border-bottom-left-radius: 10px !important;
-        }
-
-        tr:last-child td:last-child {
-          border-bottom-right-radius: 10px !important;
-        }
-
-        tbody::-webkit-scrollbar {
-          width: 8px !important;
-        }
-
-        tbody {
-          scrollbar-color: #14a5a2 #e3e3e3 !important;
-        }
-    }
-
-    .plugin-upload {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        margin-bottom: 15px !important;
-        margin-left: 20px !important;
-    }
-
-    .plugin-upload input[type="file"] {
-        display: none !important;
-    }
-
-    .upload-btn {
-        background-color: #329c42 !important;
-        color: white !important;
-        padding: 10px 15px !important;
-        border: none !important;
-        border-radius: 25px !important;
-        cursor: pointer !important;
-        font-size: 14px !important;
+      th{
+        background-color: #e3e3e3 !important;
         font-weight: bold !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        transition: background-color 0.3s ease !important;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) !important;
-        margin: 0px 75px !important;
-
-        i{
-          margin-right: 8px !important;
-          font-size: 16px !important;
-        }
-        
-        &:hover{
-          background-color: #006666 !important;
-        }
-    }
-
-    .admin-area{
-      h1{
-        margin: 30px 100px !important;
-        border-bottom: 2px solid #14a5a2 !important;
-        padding-bottom: 20px !important;
-        display: inline-block !important;
-        width: 85% !important;
-      }
-
-      div.breadcrumbs {
-        margin: 0px 100px !important;
-      }
-
-      a.button{
-        background-color:#329c42 !important;
-        color: #fff !important;
-        display: inline-block !important;
-        padding: 6px 10px !important;
         font-size: 12px !important;
-        font-weight: bold !important;
-        border-radius: 15px !important;
-        text-decoration: none !important;
-        cursor: pointer !important;
-        transition: background-color 0.3s ease !important;
-
-        &:hover{
-          background-color: #006666 !important;
-        }
       }
 
-
-      table thead th.sorted {
-          position: relative !important;
-          display: flex !important;
-          align-items: center !important;
+      tbody{
+        display: block !important;
+        max-height: 500px !important;
+        overflow-y: auto !important;
+        width: 100% !important;
       }
 
+      thead {
+        display: table-header-group !important; /* Mantém o cabeçalho fixo */
+        width: 100% !important;
+      }
       
-      table thead th.sorted .sortoptions {
+      thead, tbody tr {
+        display: table !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+      }
+
+      th:first-child {
+        border-top-left-radius: 10px !important;
+      }
+
+      th:last-child {
+        border-top-right-radius: 10px !important;
+      }
+
+      tr:last-child td:first-child {
+        border-bottom-left-radius: 10px !important;
+      }
+
+      tr:last-child td:last-child {
+        border-bottom-right-radius: 10px !important;
+      }
+
+      tbody::-webkit-scrollbar {
+        width: 8px !important;
+      }
+
+      tbody {
+        scrollbar-color: #14a5a2 #e3e3e3 !important;
+      }
+  }
+
+  #changelist-form{
+    margin: 0 !important;
+  }
+
+  .plugin-upload {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      margin-bottom: 15px !important;
+      margin-left: 20px !important;
+  }
+
+  .plugin-upload input[type="file"] {
+      display: none !important;
+  }
+
+  .upload-btn {
+      background-color: #329c42 !important;
+      color: white !important;
+      padding: 10px 15px !important;
+      border: none !important;
+      border-radius: 25px !important;
+      cursor: pointer !important;
+      font-size: 14px !important;
+      font-weight: bold !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: background-color 0.3s ease !important;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) !important;
+      margin: 0px 75px !important;
+
+      i{
+        margin-right: 8px !important;
+        font-size: 16px !important;
+      }
+      
+      &:hover{
+        background-color: #006666 !important;
+      }
+  }
+
+  .admin-area{
+    h1{
+      margin: 30px 100px !important;
+      border-bottom: 2px solid #14a5a2 !important;
+      padding-bottom: 20px !important;
+      display: inline-block !important;
+      width: 85% !important;
+    }
+
+    div.breadcrumbs {
+      margin: 0px 100px !important;
+    }
+
+    a.button{
+      background-color:#329c42 !important;
+      color: #fff !important;
+      display: inline-block !important;
+      padding: 6px 10px !important;
+      font-size: 12px !important;
+      font-weight: bold !important;
+      border-radius: 15px !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
+      transition: background-color 0.3s ease !important;
+
+      &:hover{
+        background-color: #006666 !important;
+      }
+    }
+
+
+    table thead th.sorted {
         position: relative !important;
-        margin-left: 5px !important;
         display: flex !important;
         align-items: center !important;
-      }
-
     }
 
-
-    .field-enabled img {
-      width: 72px !important;
-      height: 32px !important;
+    
+    table thead th.sorted .sortoptions {
+      position: relative !important;
+      margin-left: 5px !important;
+      display: flex !important;
+      align-items: center !important;
     }
+
+  }
+
+
+  .field-enabled img {
+    width: 72px !important;
+    height: 32px !important;
+  }
 </style>
 
 <h1>Gerenciar Plugins</h1>
