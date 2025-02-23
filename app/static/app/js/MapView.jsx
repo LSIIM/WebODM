@@ -26,13 +26,13 @@ class MapView extends React.Component {
 
   constructor(props) {
     super(props);
-
+    
     let selectedMapType = props.selectedMapType;
 
     // Automatically select type based on available tiles
     // and preference order (below)
     if (props.selectedMapType === "auto") {
-      let preferredTypes = ['orthophoto', 'dsm', 'dtm', 'polyhealth'];
+      let preferredTypes = ['orthophoto', 'plant', 'dsm', 'dtm', 'polyhealth'];
 
       for (let i = 0; i < this.props.mapItems.length; i++) {
         let mapItem = this.props.mapItems[i];
