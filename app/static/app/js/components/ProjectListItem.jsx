@@ -1048,7 +1048,8 @@ class ProjectListItem extends React.Component {
             </div>
             : ""}
 
-          {this.state.upload.editing ?
+          {/* Caso o arquivo seja vazio ou não exista nenhum valido , não ira aparece a tela de NewTaskPanel */}
+          {this.state.upload.editing&&this.state.upload.files.length>0 ?
             <NewTaskPanel
               onSave={this.handleTaskSaved}
               onCancel={this.handleTaskCanceled}

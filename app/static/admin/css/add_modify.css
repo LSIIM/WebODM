@@ -1,0 +1,221 @@
+.main{
+    margin-left: 70px;
+}
+
+#line{
+    border-bottom: 2px solid #14A5A2;
+    margin: 20px 0 20px 0;
+}
+
+.selector-available h2{
+    visibility: hidden;
+    padding: 0px !important;
+}
+
+.selector-available h2::before{
+    visibility: visible;
+    content: "Permissões Disponíveis";
+    color: #666;
+    
+    background-color: #E3E3E3 !important; 
+    border: 1px solid #E3E3E3; 
+    border-radius: 30px;
+    padding: 10.5px 12px !important;
+    font-size: 16px;
+    outline: none; 
+    width: 300px;
+    height: 40.85px;
+    display: inline-block;
+}
+
+#id_name{
+    background-color: #E3E3E3;
+    border: 1px solid #E3E3E3;
+    border-radius: 30px; 
+    padding: 8px 12px; 
+    font-size: 16px;
+    outline: none;
+    width: 300px;
+}
+
+#id_permissions_filter {
+    all:unset;
+    margin-left: 0px !important;
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    margin: 10px 0 20px 0;
+    float: left;
+}
+
+#id_permissions_filter input {
+    margin: 0;
+    width: 100%;
+    padding: 8px 12px;
+    padding-left: 30px;
+    background-color: #E3E3E3; 
+    border: 1px solid #E3E3E3;
+    border-radius: 30px;
+    font-size: 16px; 
+    outline: none; 
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
+
+#id_permissions_filter input::placeholder{
+    visibility: hidden !important;
+}
+
+#id_permissions_filter label {
+    margin: 0;
+    padding: 0 0 0 3px;
+    width: 20px !important;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+#id_permissions_filter input:focus + label,
+#id_permissions_filter input:not(:placeholder-shown) + label {
+    top: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+#id_permissions_from{
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    width: 100%;
+    padding: 15px;
+    color: #434343;
+    background-color: #E3E3E3;  
+    border: 1px solid #E3E3E3;  
+    border-top-left-radius: 30px;  
+    border-bottom-left-radius: 30px;  
+    border-top-right-radius: 15px;  
+    border-bottom-right-radius: 15px;  
+    font-size: 13px;  
+    outline: none; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    box-sizing: border-box;
+    max-height: 380px;
+}
+
+#id_permissions_from::-webkit-scrollbar {
+    width: 12px;  
+}
+
+#id_permissions_from::-webkit-scrollbar-track {
+    background: #E3E3E3;  
+    border-radius: 30px;  
+}
+
+#id_permissions_from::-webkit-scrollbar-thumb {
+    background: #18BC9C;  
+    border-radius: 10px;  
+    border: 3px solid #E3E3E3;  
+}
+
+#id_permissions_from::-webkit-scrollbar-thumb:hover {
+    background: #555;  
+}
+
+#id_permissions_from option:hover {
+    background-color: #18BC9C; 
+    color: white; 
+}
+
+.selector-chooser{
+    margin-top: 220px !important;
+}
+
+.selector-chosen{
+    margin-top: 100px !important;
+}
+
+.selector-chosen h2{
+    all: unset !important;
+    float: left !important;
+    margin-bottom: 10px !important;
+    visibility: hidden !important;
+    
+}
+.selector-chosen h2::before{
+    color: #707070;
+    content: "Permissões Escolhidas";
+    visibility: visible;
+    
+}
+
+.selector-chosen .help-tooltip,
+.selector-available h2 .help-tooltip{
+    display: none;
+}
+
+#id_permissions_to{
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    width: 100%;
+    padding: 15px;
+    color: #434343;
+    background-color: #E3E3E3;  
+    border: 1px solid #E3E3E3;  
+    border-top-left-radius: 30px;  
+    border-bottom-left-radius: 30px;  
+    border-top-right-radius: 15px;  
+    border-bottom-right-radius: 15px;  
+    font-size: 13px;  
+    outline: none; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    box-sizing: border-box;
+    max-height: 380px;
+    height: 223.59px !important;
+}
+
+#id_permissions_to::-webkit-scrollbar {
+    width: 12px;  
+}
+
+#id_permissions_to::-webkit-scrollbar-track {
+    background: #E3E3E3;  
+    border-radius: 30px;  
+}
+
+#id_permissions_to::-webkit-scrollbar-thumb {
+    background: #18BC9C;  
+    border-radius: 10px;  
+    border: 3px solid #E3E3E3;  
+}
+
+#id_permissions_to::-webkit-scrollbar-thumb:hover {
+    background: #555;  
+}
+
+#id_permissions_to option:hover {
+    background-color: #18BC9C; 
+    color: white; 
+}
+
+.addanother, .continue, .default{
+    background-color: #7FAD74 !important;
+    border-radius: 30px !important;
+}
+
+.deletelink{
+    background-color: #b20505 !important;
+    border-radius: 30px !important;
+}
+.deletelink:hover{
+    background-color: #D70101 !important;
+}
+
+.addanother:hover, .continue:hover, .default:hover{
+    background-color: #329C42 !important;
+}
