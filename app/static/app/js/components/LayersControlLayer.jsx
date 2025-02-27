@@ -90,8 +90,8 @@ export default class LayersControlLayer extends React.Component {
 
     if ((prevState.visible !== this.state.visible) && (this.state.visible != this.props.checked)){
         if(tileID !== undefined){
-            this.props.onCheckboxChange();
             this.map.usingTile = tileID;
+            this.props.onCheckboxChange();
         }
     }
 

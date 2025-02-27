@@ -14,7 +14,8 @@ export default class LayersControlPanel extends React.Component {
     onClose: PropTypes.func.isRequired,
     layers: PropTypes.array.isRequired,
     overlays: PropTypes.array,
-    map: PropTypes.object.isRequired
+    map: PropTypes.object.isRequired,
+    handleChangeTile: PropTypes.func.isRequired,
   }
 
   constructor(props){
@@ -27,6 +28,7 @@ export default class LayersControlPanel extends React.Component {
 
   handleCheckbox = (tileId) => {
     this.setState({activeTile: tileId});
+    this.props.handleChangeTile();
   }
 
 render() {

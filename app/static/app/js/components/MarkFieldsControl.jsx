@@ -42,7 +42,6 @@ class MarkFieldslButton extends React.Component {
 
   render() {
     const { showPanel } = this.state;
-
     return (
       <><a href="javascript:void(0);"
           title="Marcar talhões"
@@ -71,16 +70,16 @@ export default L.Control.extend({
     this.map = map;
 
     L.DomEvent.disableClickPropagation(this.container);
-    this.update(this.options.openPopup);
+    this.update(this.options.openPopup, this.options.task_id);
 
     return this.container;
   },
 
-  update: function (openPopup) {
+  update: function (openPopup,task_id) {
     ReactDOM.render(<MarkFieldslButton
       map={this.map}
       project_id={this.options.project_id}
-      task_id={this.options.task_id}
+      task_id={task_id}
       openPopup={openPopup}
       onTogglePopup={this.options.onTogglePopup} />, this.container);
   }

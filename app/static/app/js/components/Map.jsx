@@ -293,7 +293,7 @@ class Map extends React.Component {
             } else {
               tileUrl = Utils.buildUrlWithQuery(tileUrl, { size: TILESIZE });
             }
-
+            
             const layer = Leaflet.tileLayer(tileUrl, {
               bounds,
               minZoom: 0,
@@ -495,6 +495,10 @@ class Map extends React.Component {
     if (PluginsAPI.Map.measureControl?.update) {
       PluginsAPI.Map.measureControl.update(this.state.openPopup);
     }
+  }
+
+  tileChange = () => { 
+    this.MarkFieldsControl.update(this.state.openPopup,this.props.tiles?.[this.map.usingTile]?.meta?.task?.id || "ID padrão")
   }
 
   componentDidMount() {
@@ -707,13 +711,14 @@ class Map extends React.Component {
       openPopup: this.state.openPopup,
       onTogglePopup: this.togglePopup,
     });
-
+  
     // POPUP CAMADAS
     this.layersControl = new LayersControl({
       layers: this.state.imageryLayers,
       overlays: this.state.overlays,
       openPopup: this.state.openPopup,
       onTogglePopup: this.togglePopup,
+      tileChange: this.tileChange
     }).addTo(this.map);
 
     // POPUP BASEMAPS
@@ -801,7 +806,7 @@ class Map extends React.Component {
       if (this.state.openPopup) {
 
         this.layersControl.update(this.state.imageryLayers, this.state.overlays, this.state.openPopup, this.togglePopup)
-        this.MarkFieldsControl.update(this.state.openPopup)
+        this.MarkFieldsControl.update(this.state.openPopup,this.props.tiles?.[this.map.usingTile]?.meta?.task?.id || "ID padrão")
         this.overviewControl.updateOpenPopup(this.state.openPopup, this.togglePopup, this.state.overlays, this.state.selectedLayers);
         this.sprayLineControl.updateOpenPopup(this.state.openPopup, this.togglePopup, this.state.overlays, this.state.selectedLayers);
         this.updateControlPlugin();
@@ -809,15 +814,14 @@ class Map extends React.Component {
         this.autolayers.updateOpenPopup(this.state.openPopup, this.togglePopup);
       }
     }
-
-
+    
     if (prevProps.tiles !== this.props.tiles) {
       this.loadImageryLayers(true);
     }
 
     if (this.layersControl && (prevState.imageryLayers !== this.state.imageryLayers ||
       prevState.overlays !== this.state.overlays)) {
-      this.layersControl.update(this.state.imageryLayers, this.state.overlays, this.state.openPopup, this.togglePopup);
+      this.layersControl.update(this.state.imageryLayers, this.state.overlays, this.state.openPopup, this.togglePopup, this.tileChange);
     }
 
     if (this.selectionOverviewControl &&
@@ -888,7 +892,6 @@ class Map extends React.Component {
   }
 
   render() {
-    
     return (
       <div style={{ height: "100%" }} className="map">
         <ProcessingCard task_id={this.props.tiles[0].meta.task.id} project_id={this.props.tiles[0].meta.task.project} endProcess={this.handleEndProcess} />

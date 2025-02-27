@@ -9,7 +9,8 @@ class LayersControlButton extends React.Component {
   static propTypes = {
     layers: PropTypes.array.isRequired,
     overlays: PropTypes.array.isRequired,
-    map: PropTypes.object.isRequired
+    map: PropTypes.object.isRequired,
+    tileChange: PropTypes.func,
   }
 
   constructor(props) {
@@ -23,6 +24,7 @@ class LayersControlButton extends React.Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.onTogglePopup = this.props.onTogglePopup;
+    this.tileChange = this.props.tileChange;
   }
 
   handleOpen = () => {
@@ -33,6 +35,10 @@ class LayersControlButton extends React.Component {
 
   handleClose = () => {
     this.setState({ showPanel: false });
+  }
+
+  handleChangeTile = () => {
+    this.tileChange();
   }
 
   componentDidUpdate = (prevProps) => {
@@ -55,7 +61,7 @@ class LayersControlButton extends React.Component {
         onClick={this.handleOpen}
         className="leaflet-control-layers-control-button leaflet-bar-part theme-secondary"></a>
         <div className={showPanel ? "open layer-container popright" : "layer-container"}>
-       <LayersControlPanel map={this.props.map} layers={this.props.layers} overlays={this.props.overlays} onClose={this.handleClose} />
+       <LayersControlPanel map={this.props.map} layers={this.props.layers} overlays={this.props.overlays} onClose={this.handleClose} handleChangeTile={this.handleChangeTile}/>
       
     </div>
       </>
@@ -72,13 +78,13 @@ export default L.Control.extend({
     this.map = map;
 
     L.DomEvent.disableClickPropagation(this.container);
-    this.update(this.options.layers, [], this.options.openPopup, this.options.onTogglePopup);
+    this.update(this.options.layers, [], this.options.openPopup, this.options.onTogglePopup, this.options.tileChange);
 
     return this.container;
   },
 
-  update: function (layers, overlays, openPopup, onTogglePopup ) {
-    ReactDOM.render(<LayersControlButton map={this.map} layers={layers} overlays={overlays} openPopup={openPopup} onTogglePopup={onTogglePopup} />, this.container);
+  update: function (layers, overlays, openPopup, onTogglePopup, tileChange ) {
+    ReactDOM.render(<LayersControlButton map={this.map} layers={layers} overlays={overlays} openPopup={openPopup} onTogglePopup={onTogglePopup} tileChange={tileChange} />, this.container);
   }
 });
 

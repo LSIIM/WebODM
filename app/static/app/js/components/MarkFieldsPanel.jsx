@@ -33,6 +33,30 @@ export default class LayersControlPanel extends React.Component {
         };
     }
 
+    getOldFields(){
+        fetch('/api/projects/' + this.props.project_id + '/tasks/'+ this.props.task_id +'/ai/detections/field').then((value) => {
+            if (value.status == 404) {
+              let err = {};
+              err.message = interpolate(_("Detecção em %(url)s não encontrada!"), { url: api });
+              cb(err);
+              return;
+            }
+            value.json().then((geojson) =>{
+                L.geoJSON(geojson, {
+                    onEachFeature: (feature, layer) => {
+                        feature.properties.field_id = this.polygonIdCounter++;
+                        if(feature.properties.obstacle === true){
+                            layer.options.color = "red";
+                            layer.options.fillColor = "red";
+                        }
+                        this.drawnItems.addLayer(layer);
+                    }
+                });
+
+            })
+        }) 
+    }
+
     componentDidMount() {
         const { map } = this.props;
     
@@ -82,27 +106,8 @@ export default class LayersControlPanel extends React.Component {
         document.querySelector('.leaflet-draw-toolbar a.leaflet-draw-edit-edit').style.display = 'none';
         document.querySelector('.leaflet-draw-toolbar a.leaflet-draw-edit-remove').style.display = 'none';
 
-        fetch('/api/projects/' + this.props.project_id + '/tasks/'+ this.props.task_id +'/ai/detections/field').then((value) => {
-            if (value.status == 404) {
-              let err = {};
-              err.message = interpolate(_("Detecção em %(url)s não encontrada!"), { url: api });
-              cb(err);
-              return;
-            }
-            value.json().then((geojson) =>{
-                L.geoJSON(geojson, {
-                    onEachFeature: (feature, layer) => {
-                        feature.properties.field_id = this.polygonIdCounter++;
-                        if(feature.properties.obstacle === true){
-                            layer.options.color = "red";
-                            layer.options.fillColor = "red";
-                        }
-                        this.drawnItems.addLayer(layer);
-                    }
-                });
+        this.getOldFields();
 
-            })
-        })
         const getReload = localStorage.getItem('reloadMarkField');
         if(getReload == "false"){
             map.removeLayer(this.drawnItems);
@@ -111,7 +116,7 @@ export default class LayersControlPanel extends React.Component {
             localStorage.setItem('reloadMarkField', false);
         }
     }
-
+    
     componentWillUnmount() {
         const { map } = this.props;
         if (this.drawControl) {
@@ -125,6 +130,11 @@ export default class LayersControlPanel extends React.Component {
             this.props.map.addLayer(this.drawnItems);
         }else {
             this.props.map.removeLayer(this.drawnItems);
+        }
+        if(prevProps.task_id !== this.props.task_id){
+            this.drawnItems = new L.FeatureGroup();
+            this.polygonIdCounter = 1;
+            this.getOldFields();          
         }
     }
 
