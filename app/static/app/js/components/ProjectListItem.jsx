@@ -894,40 +894,40 @@ class ProjectListItem extends React.Component {
             {this.hasPermission("add") ?
               <div className={"asset-download-buttons " + (this.state.upload.uploading ? "hide" : "")}>
                 <button type='button'
-                        className='btn btn-sm rounded-corners upload-file upload-folder bg-success'
-                        onClick={() => {
-                          const btnTarget = "folderpicker_" + this.props.data.id 
-                          document.querySelector(`#${btnTarget}`).click();
-                          this.handleUpload();
-                          }}>
-                          <i className="content-upload-glyphicon" aria-hidden="true"></i>
-                          Selecionar pastas
-                        <input
-                          type="file" 
-                          id={"folderpicker_" + this.props.data.id }
-                          name="fileList" 
-                          webkitdirectory='true' 
-                          multiple 
-                          style={{display:'none'}} 
-                          onChange={this.handleUploadfolders}/>
+                  className='btn btn-sm rounded-corners upload-file upload-folder bg-success'
+                  onClick={() => {
+                    const btnTarget = "folderpicker_" + this.props.data.id
+                    document.querySelector(`#${btnTarget}`).click();
+                    this.handleUpload();
+                  }}>
+                  <i className="content-upload-glyphicon" aria-hidden="true"></i>
+                  Selecionar pastas
+                  <input
+                    type="file"
+                    id={"folderpicker_" + this.props.data.id}
+                    name="fileList"
+                    webkitdirectory='true'
+                    multiple
+                    style={{ display: 'none' }}
+                    onChange={this.handleUploadfolders} />
                 </button>
-                <button type="button" 
-                    className="btn btn-sm rounded-corners upload-file"
-                    onClick={() => {
-                      const btnTarget = "filerpicker_" + this.props.data.id 
-                      document.querySelector(`#${btnTarget}`).click();
-                      this.handleUpload();
-                    }}>
-                    <i className="content-upload-glyphicon" aria-hidden="true"></i>
-                    {_("Selecionar imagens e Ponto de Controle")}
-                    <input 
-                        type="file" 
-                        id={"filerpicker_" + this.props.data.id }
-                        name="fileList" 
-                        accept=".png,.jpg,.jpeg,.zip,.tif"
-                        multiple 
-                        style={{display:'none'}} 
-                        onChange={this.handleUploadFiles}/>
+                <button type="button"
+                  className="btn btn-sm rounded-corners upload-file"
+                  onClick={() => {
+                    const btnTarget = "filerpicker_" + this.props.data.id
+                    document.querySelector(`#${btnTarget}`).click();
+                    this.handleUpload();
+                  }}>
+                  <i className="content-upload-glyphicon" aria-hidden="true"></i>
+                  {_("Selecionar imagens e Ponto de Controle")}
+                  <input
+                    type="file"
+                    id={"filerpicker_" + this.props.data.id}
+                    name="fileList"
+                    accept=".png,.jpg,.jpeg,.zip,.tif"
+                    multiple
+                    style={{ display: 'none' }}
+                    onChange={this.handleUploadFiles} />
                 </button>
                 <button type="button"
                   className="btn btn-sm rounded-corners import-file"
@@ -938,7 +938,7 @@ class ProjectListItem extends React.Component {
               </div>
               : ""}
 
-        
+
           </div>
 
           <div className="project-name">
@@ -1003,14 +1003,14 @@ class ProjectListItem extends React.Component {
                 </div>
               </div> : ""}
 
-            {numTasks > 0 && this.state.showMap ?
+            {/*numTasks > 0 && this.state.showMap ?
               <span>
                 <i key="edit-icon" className='fa fa-globe'></i>
                 <a key="edit-text" href="javascript:void(0);" onClick={this.viewMap}>
                   {_("Ver mapa")}
                 </a>
               </span>
-              : ""}
+              : ""*/}
 
             {canEdit ?
               <span>
@@ -1032,7 +1032,7 @@ class ProjectListItem extends React.Component {
         <i className="drag-drop-icon fa fa-inbox"></i>
         <div className="row">
           {this.state.upload.uploading ? <UploadProgressBar {...this.state.upload} /> : ""}
-            {this.state.upload.uploading ? 
+          {this.state.upload.uploading ?
             <button disabled={this.state.upload.error !== ""}
               type="button"
               className="btn btn-danger btn-sm upload-cancel"
@@ -1049,7 +1049,7 @@ class ProjectListItem extends React.Component {
             : ""}
 
           {/* Caso o arquivo seja vazio ou não exista nenhum valido , não ira aparece a tela de NewTaskPanel */}
-          {this.state.upload.editing&&this.state.upload.files.length>0 ?
+          {this.state.upload.editing && this.state.upload.files.length > 0 ?
             <NewTaskPanel
               onSave={this.handleTaskSaved}
               onCancel={this.handleTaskCanceled}
@@ -1080,7 +1080,7 @@ class ProjectListItem extends React.Component {
               history={this.props.history}
             /> : ""}
 
-      </div>
+        </div>
       </li>
     );
   }
