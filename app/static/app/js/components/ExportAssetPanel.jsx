@@ -7,10 +7,11 @@ import { _ } from '../classes/gettext';
 import Utils from '../classes/Utils';
 import Workers from '../classes/Workers';
 
+
 export default class ExportAssetPanel extends React.Component {
   static defaultProps = {
       exportFormats: ["gtiff-rgb", "gtiff", "jpg", "png", "kmz"],
-      asset: "",
+      asset: "polyhealth",
       exportParams: {},
       task: null,
       dropUp: false,

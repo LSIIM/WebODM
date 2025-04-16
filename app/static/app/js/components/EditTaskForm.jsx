@@ -559,10 +559,9 @@ class EditTaskForm extends React.Component {
         </div>
       </div>);
     }
-
     let taskOptions = "";
-    if (this.formReady()) {
 
+    if (this.formReady()) {
       const optionsSelector = (
         <div className='select-container' style={{ display: "flex", justifyContent: "start", alignItems: "  ", }}>
           <select
@@ -616,7 +615,6 @@ class EditTaskForm extends React.Component {
           </div>
         </div>);
       }
-
       taskOptions = (
         <div className='edit-task-form'>
           {tagsField}
@@ -681,7 +679,6 @@ class EditTaskForm extends React.Component {
         <div className="col-sm-offset-2 col-sm-10">{_("Carregando nós de processamento e predefinições...")} <i className="fa fa-sync fa-spin fa-fw"></i></div>
       </div>);
     }
-
     return (
 
       <>
@@ -746,7 +743,7 @@ class EditTaskForm extends React.Component {
           </div >
         }
         {/* Loading Panel !!!! */}
-        {/* {this.props.currentStep === "loadingStep" && <div></div>} */}
+        {this.props.currentStep === "loadingStep" && <div></div>}
       </>
     );
   }

@@ -30,6 +30,8 @@ from rest_framework.response import Response
 from worker.tasks import export_raster, export_pointcloud
 from django.utils.translation import gettext as _
 import warnings
+import logging
+logger = logging.getLogger(__name__)
 
 # Disable: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix be returned.
 warnings.filterwarnings("ignore", category=NotGeoreferencedWarning)
@@ -80,7 +82,13 @@ def get_extent(task, tile_type):
 
 
 def get_raster_path(task, tile_type):
-    return task.get_asset_download_path(tile_type + ".tif")
+    if tile_type in ['orthophoto', 'plant', 'dsm', 'dtm', 'polyhealth']:  # Ensure polyhealth is included
+        path = task.get_asset_download_path(tile_type + ".tif")
+        return path
+    else:
+        raise exceptions.NotFound()
+    
+    
 
 def get_pointcloud_path(task):
     return task.get_asset_download_path("georeferenced_model.laz")
@@ -610,8 +618,7 @@ class Export(TaskNestedView):
                         "-{}".format(formula) if expr is not None else "",
                         extension
                     )
-
-        if asset_type in ['orthophoto', 'dsm', 'dtm']:
+        if asset_type in ['orthophoto', 'dsm', 'dtm', 'polyhealth']:
             # Shortcut the process if no processing is required
             if export_format == 'gtiff' and (epsg == task.epsg or epsg is None) and expr is None:
                 return Response({'url': '/api/projects/{}/tasks/{}/download/{}.tif'.format(task.project.id, task.id, asset_type), 'filename': filename})
