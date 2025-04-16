@@ -50,6 +50,8 @@ services:
     build:
       context: ${NODEODM_DIR}
       dockerfile: Dockerfile
+    volumes:
+      - ${WO_TMP_DIR}:/var/www/data
     expose:
       - "3000"
     ports:

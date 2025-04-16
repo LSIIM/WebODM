@@ -37,8 +37,8 @@ RUN /webodm/nodeodm/setup.sh && \
 # Configurações Django
 RUN echo "UTC" > /etc/timezone && \
     python manage.py collectstatic --noinput && \
-    python manage.py rebuildplugins && \
-    python manage.py translate build --safe
+    python manage.py rebuildplugins 
+    # python manage.py translate build --safe
 
 # Cleanupe
 RUN echo "Cleaning up unnecessary files" && \
