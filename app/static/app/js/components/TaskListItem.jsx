@@ -571,11 +571,11 @@ class TaskListItem extends React.Component {
                       <td><strong>{_("Options:")}</strong></td>
                       <td>{this.optionsToList(task.options)}</td>
                     </tr>} */}
-                  {/* {stats && stats.gsd &&
+                  {stats && stats.gsd &&
                     <tr>
                       <td><strong>{_("Average GSD:")}</strong></td>
                       <td>{parseFloat(stats.gsd.toFixed(2)).toLocaleString()} cm</td>
-                    </tr>} */}
+                    </tr>} 
                     {task.size > 0 &&
                     <tr>
                       <td><strong>{_("Uso do Disco:")}</strong></td>
